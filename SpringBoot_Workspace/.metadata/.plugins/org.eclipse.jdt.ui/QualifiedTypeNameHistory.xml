@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+    <fullyQualifiedTypeName name="org.apache.ibatis.annotations.Param"/>
+    <fullyQualifiedTypeName name="org.apache.shiro.realm.AuthorizingRealm"/>
+    <fullyQualifiedTypeName name="org.apache.shiro.authc.AuthenticationException"/>
+    <fullyQualifiedTypeName name="com.system.aShiro.mapper.AccountMapper"/>
+    <fullyQualifiedTypeName name="com.system.aShiro.bean.Account"/>
+    <fullyQualifiedTypeName name="org.apache.shiro.subject.Subject"/>
+    <fullyQualifiedTypeName name="java.util.Locale"/>
+    <fullyQualifiedTypeName name="org.apache.shiro.authc.UnknownAccountException"/>
+    <fullyQualifiedTypeName name="org.apache.shiro.authc.LockedAccountException"/>
+    <fullyQualifiedTypeName name="org.apache.shiro.authc.IncorrectCredentialsException"/>
+</qualifiedTypeNameHistroy>
