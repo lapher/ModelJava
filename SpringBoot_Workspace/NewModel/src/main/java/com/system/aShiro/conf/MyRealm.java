@@ -1,4 +1,4 @@
-package com.system.aShiro;
+package com.system.aShiro.conf;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.system.aShiro;
+package com.system.aShiro.conf;
 
 import java.util.LinkedHashMap;
 
@@ -24,7 +24,7 @@ public class ShiroConfig {
 	    factoryBean.setFilterChainDefinitionMap(map);
 	    // 设置登录页面
 	    factoryBean.setLoginUrl("/Login");
-//		    factoryBean.setSuccessUrl("/login");
+//		factoryBean.setSuccessUrl("/login");
 	    // 未授权页面
 	    factoryBean.setUnauthorizedUrl("/unauth");
 	    return factoryBean;
