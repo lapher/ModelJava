@@ -1,4 +1,4 @@
-package com.system.web.z_controller;
+package com.system.web.zController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
