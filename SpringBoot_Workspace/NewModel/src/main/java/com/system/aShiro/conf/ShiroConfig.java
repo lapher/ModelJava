@@ -6,9 +6,11 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
+@Configuration
 public class ShiroConfig {
 	
 	@Bean(name = "shiroFilterFactoryBean")

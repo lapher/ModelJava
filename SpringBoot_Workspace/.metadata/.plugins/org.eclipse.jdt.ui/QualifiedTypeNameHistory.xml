@@ -11,4 +11,8 @@
     <fullyQualifiedTypeName name="org.apache.shiro.authc.UnknownAccountException"/>
     <fullyQualifiedTypeName name="org.apache.shiro.authc.LockedAccountException"/>
     <fullyQualifiedTypeName name="org.apache.shiro.authc.IncorrectCredentialsException"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
 </qualifiedTypeNameHistroy>
