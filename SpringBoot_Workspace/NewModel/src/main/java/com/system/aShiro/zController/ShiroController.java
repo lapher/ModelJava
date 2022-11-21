@@ -51,12 +51,20 @@ public class ShiroController {
 			subject.login(token);
 		} catch (UnknownAccountException e) {
 			System.out.println("帳戶不存在");
+			session.setAttribute("alert_isValie", true);
+			session.setAttribute("alertMsg", messageSource.getMessage("login.accountOrPasswordError", null, locale));
 			return "redirect:/Logout";
 		} catch (LockedAccountException e) {
 			System.out.println("帳戶不存在");
+			session.setAttribute("alert_isValie", true);
+			session.setAttribute("alertMsg", messageSource.getMessage("login.accountOrPasswordError", null, locale));
+			
 			return "redirect:/Logout";
 		} catch (IncorrectCredentialsException e) {
 			System.out.println("帳戶不存在");
+			session.setAttribute("alert_isValie", true);
+			session.setAttribute("alertMsg", messageSource.getMessage("login.accountOrPasswordError", null, locale));
+			
 			return "redirect:/Logout";
 		}
 		
