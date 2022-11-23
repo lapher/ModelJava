@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.system.aShiro.bean.Account;
+
 @Controller
 //@RequestMapping("/")
 public class ShiroController {
@@ -68,7 +70,11 @@ public class ShiroController {
 			return "redirect:/Logout";
 		}
 		
+		subject.login(token);
+		Account account = (Account) subject.getPrincipal();
+		session.setAttribute("account", account);
 		return "redirect:/Dashboard";
+
 
 	}
 }
