@@ -1,0 +1,540 @@
+<div th:fragment="mainPage">
+	<!-- ======= Main ======= -->
+	<main id="main" class="main">
+		<div id="app" v-cloak>
+			<!-- Page Title -->
+			<div class="pagetitle">
+				<h1 th:text="#{teller_Infor.title}">柜员表</h1>
+				<div @click=""></div>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+						<li class="breadcrumb-item active" th:text="#{teller_Infor.title}">柜员表</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<!-- Main Content -->
+			<section class="section dashboard">
+				<div class="row">
+					<!-- Select Alert -->
+					<div class="alert alert-danger alert-dismissible fade show" role="alert"
+						v-if=" selectAlertMsg !=  '' ">
+						{{ selectAlertMsg }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+							@click=" selectAlertMsg = '' "></button>
+					</div>
+
+					<!-- 查詢 -->
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title" th:text="#{button.select}">查询</h5>
+							<div class="row mb-3">
+								<div class="row">
+									<div class="col-5 text-black" th:text="#{teller_Infor.teller_No}">柜员号</div>
+									<!-- <div class="col-6 text-black">證件類型</div> -->
+								</div>
+								<div class="row mb-3">
+									<div class="col-5">
+										<input type="text" class="form-control" v-model="select_Bean.teller_No">
+									</div>
+								</div>
+								<div class="d-flex bd-highlight">
+									<button type="submit" class="btn btn-primary me-1 p-2 bd-highlight"
+										@click="getBean">Submit</button>
+									<button type="submit" class="btn btn-secondary p-2 bd-highlight"
+										@click="cancel_Button">Cancel</button>
+									<button type="submit" class="btn btn-secondary ms-auto p-2 bd-highlight"
+										@click="addItem_Button" th:text="#{button.insert}">新增资料</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- Edit Alert -->
+					<div class="alert alert-danger alert-dismissible fade show" role="alert"
+						v-if=" editAlertMsg !=  '' ">
+						{{ editAlertMsg }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+							@click=" editAlertMsg = '' "></button>
+					</div>
+
+					<!-- Insert頁面 --> <!-- Update頁面 -->
+					<div class="card" v-if="editPage_isValue === 'insert' || editPage_isValue === 'update' ">
+						<div class="card-body">
+							<h5 class="card-title" th:text="#{buttonPage.insert}" v-if="editPage_isValue === 'insert' ">新增页面</h5>
+							<h5 class="card-title" th:text="#{buttonPage.update}" v-if="editPage_isValue === 'update' ">更新页面</h5>
+
+							<!-- #1 -->
+							<div class="row">
+								<div class="col-3 text-black" th:text="#{teller_Infor.teller_No}">柜员号</div>
+								<div class="col-3 text-black" th:text="#{teller_Infor.emplyee_No}">工号</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3" v-if="editPage_isValue === 'insert' ">
+									<input type="text" class="form-control" v-model="temp_Bean.teller_No">
+								</div>
+								<div class="col-sm-3" v-if="editPage_isValue === 'insert' ">
+									<input type="text" class="form-control" v-model="temp_Bean.emplyee_No">
+								</div>
+								<div class="col-sm-3" v-if="editPage_isValue === 'update' ">
+									<input type="text" class="form-control" disabled v-model="temp_Bean.teller_No">
+								</div>
+								<div class="col-sm-3" v-if="editPage_isValue === 'update' ">
+									<input type="text" class="form-control" disabled v-model="temp_Bean.emplyee_No">
+								</div>
+							</div>
+
+							<!-- #2 -->
+							<div class="row">
+								<div class="col-3 text-black" th:text="#{teller_Infor.branch_Code}">内部机构号</div>
+								<div class="col-3 text-black" th:text="#{teller_Infor.license_No}">金融许可证号</div>
+								<div class="col-6 text-black" th:text="#{teller_Infor.branch_Name}">银行机构名称</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<input type="text" class="form-control" v-model="temp_Bean.branch_Code">
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" v-model="temp_Bean.license_No">
+								</div>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" v-model="temp_Bean.branch_Name">
+								</div>
+							</div>
+
+							<!-- #3 -->
+							<div class="row">
+								<div class="col-3 text-black" th:text="#{teller_Infor.teller_Type}">柜员类型</div>
+								<div class="col-3 text-black" th:text="#{teller_Infor.real_Teller_Flag}">是否实体柜员</div>
+								<div class="col-3 text-black" th:text="#{teller_Infor.job_No}">岗位编号</div>
+								<div class="col-3 text-black" th:text="#{teller_Infor.teller_Auth_Level}">柜员权限级别</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<select class="form-select" v-model="temp_Bean.teller_Type">
+										<option v-for="type in teller_Type">
+											{{ type.option_Value }}
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-3">
+									<select class="form-select" v-model="temp_Bean.real_Teller_Flag">
+										<option v-for="type in real_Teller_Flag">
+											{{ type.option_Value }}
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" v-model="temp_Bean.job_No">
+								</div>
+								<div class="col-sm-3">
+									<select class="form-select" v-model="temp_Bean.teller_Auth_Level">
+										<option v-for="type in teller_Auth_Level">
+											{{ type.option_Value }}
+										</option>
+									</select>
+								</div>
+							</div>
+
+							<!-- #4 -->
+							<div class="row">
+								<div class="col-3 text-black" th:text="#{teller_Infor.teller_Active_Date}">上岗日期</div>
+								<div class="col-3 text-black" th:text="#{teller_Infor.teller_Status}">柜员状态</div>
+								<div class="col-6 text-black" th:text="#{teller_Infor.remark}">备注</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<input type="text" class="form-control" v-model="temp_Bean.teller_Active_Date">
+								</div>
+								<div class="col-sm-3">
+									<select class="form-select" v-model="temp_Bean.teller_Status">
+										<option v-for="type in teller_Status">
+											{{ type.option_Value }}
+										</option>
+									</select>
+								</div>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" v-model="temp_Bean.remark">
+								</div>
+							</div>
+
+							<!-- #Submit-->
+							<button type="submit" class="btn btn-secondary me-1" @click="insert_Button" v-if="editPage_isValue === 'insert' ">Submit</button>
+							<button type="submit" class="btn btn-secondary me-1" @click="update_Button" v-if="editPage_isValue === 'update' ">Submit</button>
+						</div>
+					</div>
+
+					<!-- 內容 -->
+					<div class="card">
+						<div class="card-body" v-if="containPage_isValue === 'true' ">
+							<h5 class="card-title" th:text="#{buttonPage.title}">內容</h5>
+
+							<!-- Small tables -->
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th width="12%" th:text="#{teller_Infor.teller_No}">柜员号</th>
+										<th width="12%" th:text="#{teller_Infor.emplyee_No}">工号</th>
+										<th width="12%" th:text="#{teller_Infor.branch_Code}">内部机构号</th>
+										<th width="20%" th:text="#{teller_Infor.license_No}">金融许可证号</th>
+										<th th:text="#{teller_Infor.branch_Name}">银行机构名称</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{Bean.teller_No}}</td>
+										<td>{{Bean.emplyee_No}}</td>
+										<td>{{Bean.branch_Code}}</td>
+										<td>{{Bean.license_No}}</td>
+										<td>{{Bean.branch_Name}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th width="12%" th:text="#{teller_Infor.teller_Type}">柜员类型</th>
+										<th width="12%" th:text="#{teller_Infor.real_Teller_Flag}">是否实体柜员</th>
+										<th width="12%" th:text="#{teller_Infor.job_No}">岗位编号</th>
+										<th width="20%" th:text="#{teller_Infor.teller_Auth_Level}">柜员权限级别</th>
+										<th width="20%" th:text="#{teller_Infor.title}">teller_Active_Date</th>
+										<th th:text="#{teller_Infor.teller_Status}">柜员状态</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{Bean.teller_Type}}</td>
+										<td>{{Bean.real_Teller_Flag}}</td>
+										<td>{{Bean.job_No}}</td>
+										<td>{{Bean.teller_Auth_Level}}</td>
+										<td>{{Bean.teller_Active_Date}}</td>
+										<td>{{Bean.teller_Status}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th width="12%" th:text="#{teller_Infor.maintainUser}">维护人员</th>
+										<th width="12%" th:text="#{teller_Infor.maintainDate}">维护日期</th>
+										<th th:text="#{teller_Infor.maintainTime}">维护时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{Bean.maintainUser}}</td>
+										<td>{{Bean.maintainDate}}</td>
+										<td>{{Bean.maintainTime}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th width="95%" th:text="#{teller_Infor.remark}">备注</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{Bean.remark}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- End small tables -->
+
+							<div class="d-flex justify-content-start">
+								<button type="button" class="btn btn-secondary me-1" @click="edit_Button">Edit</button>
+								<button type="button" class="btn btn-danger" @click="delete_Button">Delete</button>
+							</div>
+							<!-- End Button -->
+
+						</div>
+					</div>
+
+				</div>
+			</section>
+			<!-- End Main Content -->
+		</div>
+
+	</main>
+	<!-- End #main -->
+</div>
+
+
+<!-- Sidebar -->
+<script>
+	$(function () {
+		// Sidebar
+		$("#page").removeClass("collapsed") 			// 顯示大標題
+		$("#page-nav").addClass("show")					// 展開選項
+		$("#sidebar_Teller_Information").addClass("active")	// 顯示小標題
+	})
+</script>
+
+<!-- Vue -->
+<script type="module" th:inline="javascript">
+	import { createApp, ref, reactive, toRefs, onMounted } from "../vue/vue.esm-browser.min.js";
+	const baseUrl = [[${ #servletContext.contextPath }]];
+
+	const app = createApp({
+		setup() {
+			// Init
+			onMounted(() => {
+				getOptions()
+				data.Bean = { ...data.default_Bean }
+				data.temp_Bean = { ...data.default_Bean }
+				data.select_Bean = { ...data.select_default_Bean }
+			})
+			// 取得 Options	
+			function getOptions() {
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + "/Teller_Information/getOptions"
+				xhr.open("GET", url)
+				xhr.send()
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+						options.real_Teller_Flag = maps.real_Teller_Flag
+						options.teller_Auth_Level = maps.teller_Auth_Level
+						options.teller_Status = maps.teller_Status
+						options.teller_Type = maps.teller_Type
+					}
+
+				}
+			}
+
+			// Data
+			const editPage_isValue = ref("") 	// insert udpate
+			const containPage_isValue = ref("") // true
+			const data = reactive({
+				default_Bean: {
+					teller_No: "",
+					emplyee_No: "",
+					branch_Code: "",
+					license_No: "",
+					branch_Name: "",
+					teller_Type: "",
+					real_Teller_Flag: "",
+					job_No: "",
+					teller_Auth_Level: "",
+					teller_Active_Date: "",
+					teller_Status: "",
+					remark: "",
+					maintainUser: "",
+					maintainDate: "",
+					maintainTime: ""
+				},
+				Bean: {
+					
+				},
+				temp_Bean: {
+				
+				},
+				select_default_Bean: {
+					teller_No: ""
+				},
+				select_Bean: {
+
+				},
+			})
+
+
+			// Alert Message
+			const selectAlertMsg = ref("")
+			const editAlertMsg = ref("")
+
+			// Option
+			const options = reactive({
+				teller_Type: [
+					// { option_Value: "清算"},
+				],
+				real_Teller_Flag: [
+					// { option_Value: "是"},
+					// { option_Value: "否"},
+				],
+				teller_Auth_Level: [
+					// { option_Value: "其他-经办"},
+				],
+				teller_Status: [
+					// { option_Value: "在岗"},
+					// { option_Value: "离岗"},
+				]
+			})
+
+
+
+
+
+			// Cancel
+			const cancel_Button = () => {
+				data.Bean = { ...data.default_Bean }
+				containPage_isValue.value = ""
+				cancel_Edit()
+			}
+
+			function cancel_Edit() {
+				editPage_isValue.value = ""
+				data.temp_Bean = { ...data.default_Bean }
+				data.select_Bean = { ...data.select_default_Bean }
+				selectAlertMsg.value = ""
+				editAlertMsg.value = ""
+			}
+
+			// CRUD
+			// 查詢
+			const getBean = () => {
+				const xhr = new XMLHttpRequest();
+				const url = baseUrl + "/Teller_Information/getTeller_Information"
+				xhr.open("POST", url)
+				xhr.setRequestHeader("Content-Type", "application/json")
+				xhr.send(JSON.stringify(data.select_Bean))
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+
+						if (!maps.Bean) {
+							data.Bean = { ...data.default_Bean }
+							selectAlertMsg.value = maps.selectAlertMsg
+							containPage_isValue.value = ""
+							return
+						}
+
+						if (true) {
+							data.Bean = maps.Bean
+							containPage_isValue.value = "true"
+							cancel_Edit()
+						}
+					}
+				}
+			}
+
+			// 新增
+			const addItem_Button = () => {
+				if (editPage_isValue.value === "insert") {
+					editPage_isValue.value = ""
+				} else {
+					editPage_isValue.value = "insert"
+				}
+				data.temp_Bean = { ...data.default_Bean }
+			}
+
+			const insert_Button = () => {
+
+				if (!checkEdit()) return;
+
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + "/Teller_Information/insertTeller_Information"
+				xhr.open("POST", url)
+				xhr.setRequestHeader("Content-Type", "application/json")
+				xhr.send(JSON.stringify(data.temp_Bean))
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+
+						if (!maps.Bean) {
+							editAlertMsg.value = maps.editAlertMsg
+							return
+						}
+
+						if (true) {
+							data.Bean = maps.Bean
+							containPage_isValue.value = "true"
+							cancel_Edit()
+						}
+					}
+
+				}
+			}
+
+			// 更新
+			const edit_Button = () => {
+				if (editPage_isValue.value === "update") {
+					editPage_isValue.value = ""
+				} else {
+					editPage_isValue.value = "update"
+				}
+				data.temp_Bean = { ...data.Bean }
+			}
+
+			const update_Button = () => {
+
+				if (!checkEdit()) return;
+
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + "/Teller_Information/updateTeller_Information"
+				xhr.open("POST", url)
+				xhr.setRequestHeader("Content-Type", "application/json")
+				xhr.send(JSON.stringify(data.temp_Bean))
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+
+						if (!maps.Bean) {
+							editAlertMsg.value = maps.editAlertMsg
+							return
+						}
+
+						if (true) {
+							data.Bean = maps.Bean
+							cancel_Edit()
+						}
+					}
+
+				}
+			}
+
+			//刪除
+			const delete_Button = () => {
+				data.temp_Bean = { ...data.Bean }
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + "/Teller_Information/deleteTeller_Information"
+				xhr.open("POST", url)
+				xhr.setRequestHeader("Content-Type", "application/json")
+				xhr.send(JSON.stringify(data.temp_Bean))
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+
+						if (!maps.Bean) {
+							data.Bean = { ...data.default_Bean }
+							containPage_isValue.value = ""
+							cancel_Edit()
+						}
+
+					}
+
+				}
+			}
+
+			function checkEdit() {
+				if (data.temp_Bean.teller_No == '') {
+					editAlertMsg.value = "请输入柜员号"
+					return false;
+				}
+
+				// if (data.temp_Bean.type == '') {
+				// 	editAlertMsg.value = "請選擇證件類型"
+				// 	return false;
+				// }
+
+				return true;
+			}
+
+			// Return============================
+			return {
+				// Data
+				editPage_isValue, ...toRefs(data), ...toRefs(options), selectAlertMsg, editAlertMsg,
+				containPage_isValue,
+
+				// function
+				getBean, cancel_Button, addItem_Button, insert_Button, edit_Button, update_Button, delete_Button,
+
+
+			}
+		}
+	})
+	app.mount("#app")
+</script>
