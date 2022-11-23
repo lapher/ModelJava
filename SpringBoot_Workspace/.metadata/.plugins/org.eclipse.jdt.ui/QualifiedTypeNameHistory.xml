@@ -5,7 +5,6 @@
     <fullyQualifiedTypeName name="org.apache.shiro.realm.AuthorizingRealm"/>
     <fullyQualifiedTypeName name="org.apache.shiro.authc.AuthenticationException"/>
     <fullyQualifiedTypeName name="com.system.aShiro.mapper.AccountMapper"/>
-    <fullyQualifiedTypeName name="com.system.aShiro.bean.Account"/>
     <fullyQualifiedTypeName name="org.apache.shiro.subject.Subject"/>
     <fullyQualifiedTypeName name="java.util.Locale"/>
     <fullyQualifiedTypeName name="org.apache.shiro.authc.UnknownAccountException"/>
@@ -16,4 +15,12 @@
     <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
     <fullyQualifiedTypeName name="org.mybatis.spring.annotation.MapperScan"/>
+    <fullyQualifiedTypeName name="com.Application"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Row"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Sheet"/>
+    <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Cell"/>
+    <fullyQualifiedTypeName name="com.system.aShiro.bean.Account"/>
+    <fullyQualifiedTypeName name="com.system.web.mapper.CommonUseMapperService"/>
 </qualifiedTypeNameHistroy>
