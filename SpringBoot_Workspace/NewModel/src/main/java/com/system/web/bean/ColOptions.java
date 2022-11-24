@@ -8,10 +8,10 @@ public class ColOptions implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String table_Name;
-	private String col_Name;
-	private String option_Value;
-	private String option_Text;
+	private String table_Name;	// 資料庫表個名稱
+	private String col_Name;	// 欄位名稱
+	private String option_Value;// 選項 資料庫名稱
+	private String option_Text;	// 選項 呈現名稱
 	private int display_Order;
 	private String remark;
 	private String permission;
