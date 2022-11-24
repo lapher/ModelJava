@@ -4,12 +4,12 @@
 		<div>
 			<!-- Page Title -->
 			<div class="pagetitle">
-				<h1 th:text="#{select_teller_Infor.title}">Title</h1>
+				<h1 th:text="#{select_beanA.title}">Title</h1>
 				<div @click=""></div>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-						<li class="breadcrumb-item active" th:text="#{select_teller_Infor.title}">breadcrumb
+						<li class="breadcrumb-item active" th:text="#{select_beanA.title}">breadcrumb
 						</li>
 					</ol>
 				</nav>
@@ -57,7 +57,7 @@
 		// Sidebar
 		$("#select_page").removeClass("collapsed") 			// 顯示大標題
 		$("#select_page-nav").addClass("show")				// 展開選項
-		$("#sidebar_select_Teller_Information").addClass("active")// 顯示小標題
+		$("#sidebar_select_beanA").addClass("active")// 顯示小標題
 	})
 </script>
 
@@ -65,7 +65,7 @@
 	$(function () {
 		// Init
 		const baseUrl = /*[[@{/}]]*/ "/";
-		const requestMapping = "Teller_Information";
+		const requestMapping = "BeanA";
 		getBeanAll();
 
 		// Data ====================================
@@ -75,7 +75,7 @@
 		// Table Content ==========================
 		function getBeanAll() {
 			let xhr = new XMLHttpRequest();
-			let url = baseUrl + requestMapping + "/getBeanAll"
+			let url = baseUrl + requestMapping + "/getAll"
 			xhr.open("GET", url)
 			xhr.send()
 			xhr.onreadystatechange = function () {
