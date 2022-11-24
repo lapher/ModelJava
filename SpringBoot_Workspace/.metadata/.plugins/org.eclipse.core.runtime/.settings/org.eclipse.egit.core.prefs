@@ -1,5 +1,5 @@
-GitRepositoriesView.GitDirectories=C\:\\_java\\git\\ModelJava\\.git;
-GitRepositoriesView.GitDirectories.relative=C\:\\_java\\git\\ModelJava\\.git;
+GitRepositoriesView.GitDirectories=C\:\\_java\\git\\ModelJava\\.git;C\:\\_Git\\ModelJava\\ModelJava\\.git;
+GitRepositoriesView.GitDirectories.relative=C\:\\_java\\git\\ModelJava\\.git;C\:\\_Git\\ModelJava\\ModelJava\\.git;
 RepositoryGroups.uuids=
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

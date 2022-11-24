@@ -162,11 +162,11 @@
 						<table class="table table-sm">
 							<thead>
 								<tr>
-									<th width="12%" th:text="#{teller_Infor.teller_No}">柜员号</th>
-									<th width="12%" th:text="#{teller_Infor.emplyee_No}">工号</th>
-									<th width="12%" th:text="#{teller_Infor.branch_Code}">内部机构号</th>
-									<th width="20%" th:text="#{teller_Infor.license_No}">金融许可证号</th>
-									<th th:text="#{teller_Infor.branch_Name}">银行机构名称</th>
+									<th width="12%">柜员号</th>
+									<th width="12%">工号</th>
+									<th width="12%">内部机构号</th>
+									<th width="20%">金融许可证号</th>
+									<th >银行机构名称</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -179,56 +179,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<table class="table table-sm">
-							<thead>
-								<tr>
-									<th width="12%" th:text="#{teller_Infor.teller_Type}">柜员类型</th>
-									<th width="12%" th:text="#{teller_Infor.real_Teller_Flag}">是否实体柜员</th>
-									<th width="12%" th:text="#{teller_Infor.job_No}">岗位编号</th>
-									<th width="20%" th:text="#{teller_Infor.teller_Auth_Level}">柜员权限级别</th>
-									<th width="20%" th:text="#{teller_Infor.title}">teller_Active_Date</th>
-									<th th:text="#{teller_Infor.teller_Status}">柜员状态</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>`+ bean.teller_Type +`</td>
-									<td>`+ bean.real_Teller_Flag +`</td>
-									<td>`+ bean.job_No +`</td>
-									<td>`+ bean.teller_Auth_Level +`</td>
-									<td>`+ bean.teller_Active_Date +`</td>
-									<td>`+ bean.teller_Status +`</td>
-								</tr>
-							</tbody>
-						</table>
-						<table class="table table-sm">
-							<thead>
-								<tr>
-									<th width="12%" th:text="#{teller_Infor.maintainUser}">维护人员</th>
-									<th width="12%" th:text="#{teller_Infor.maintainDate}">维护日期</th>
-									<th th:text="#{teller_Infor.maintainTime}">维护时间</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>`+ bean.maintainUser +`</td>
-									<td>`+ bean.maintainDate +`</td>
-									<td>`+ bean.maintainTime +`</td>
-								</tr>
-							</tbody>
-						</table>
-						<table class="table table-sm">
-							<thead>
-								<tr>
-									<th width="95%" th:text="#{teller_Infor.remark}">备注</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>`+ bean.remark +`</td>
-								</tr>
-							</tbody>
-						</table>
+						
 						<!-- End small tables -->
 
 					</div>
