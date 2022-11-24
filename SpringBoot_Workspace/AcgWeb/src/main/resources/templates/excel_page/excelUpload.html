@@ -1,0 +1,200 @@
+<div th:fragment="mainPage">
+	<main id="main" class="main">
+		<div id="app" v-cloak>
+			<!-- Page Title -->
+			<div class="pagetitle">
+				<h1>上传档案</h1>
+				<div @click=""></div>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+						<li class="breadcrumb-item active">上传档案</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<!-- Main Content -->
+			<section class="section dashboard">
+				<div class="row">
+					<!-- Alert Msg-->
+					<div class="alert alert-primary alert-dismissible fade show" role="alert"
+						v-if=" trueAlertMsg !=  '' ">
+						{{ trueAlertMsg }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+							@click=" trueAlertMsg = '' "></button>
+					</div>
+					<div class="alert alert-danger alert-dismissible fade show" role="alert"
+						v-if=" falseAlertMsg !=  '' ">
+						{{ falseAlertMsg }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+							@click=" falseAlertMsg = '' "></button>
+					</div>
+
+
+					<!-- 查詢 -->
+					<div class="card">
+						<div class="card-body">
+							<!-- 選擇檔案 -->
+							<h5 class="card-title">查詢</h5>
+							<div class="row mb-3">
+								<!-- title -->
+								<div class="row">
+									<div class="col-5 text-black">選擇補登入的資料</div>
+								</div>
+								<!--  -->
+								<div class="row mb-3">
+									<!-- 選擇檔案 -->
+									<div class="col-4">
+										<select class="form-select" v-model="" id="tableName">
+											<option v-for="option in options" :value="option.value">
+												{{ option.name }}
+											</option>
+										</select>
+									</div>
+									<!-- upload file -->
+									<div class="col-8">
+										<div class="col-sm-10">
+											<form enctype="multipart/form-data" id="uploadForm">
+												<input type="file" class="form-control" name="csvfile" id="csvfile">
+											</form>
+										</div>
+									</div>
+								</div>
+								<!-- 按鈕 -->
+								<div class="d-flex bd-highlight">
+									<button type="submit" class="btn btn-primary me-1 p-2 bd-highlight"
+										@click="insertFile">Submit</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</section>
+			<!-- End Main Content -->
+		</div>
+
+	</main>
+</div>
+
+
+<!-- Sidebar -->
+<script>
+	$(function () {
+		// Sidebar
+		$("#sidebar_ExcelUpload").removeClass("collapsed")
+	})
+</script>
+
+<!-- Vue -->
+<script type="module" th:inline="javascript">
+	import { createApp, ref, reactive, toRefs, onMounted } from "../../vue/vue.esm-browser.min.js";
+	const baseUrl = [[${ #servletContext.contextPath }]] + "/";
+	const requestMapping = "Excel";
+
+	const app = createApp({
+		setup() {
+			// Init
+			onMounted(() => {
+				getOptions();
+			})
+
+			function getOptions() {
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + requestMapping + "/getOptions"
+				xhr.open("GET", url)
+				xhr.send()
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+						data.options = maps.options
+					}
+				}
+			}
+
+			// Data
+			const data = reactive({
+				options: [
+					// { value: "chinaCompany", name: "法报补录平台数据信息" },
+					// { value: "chinaJobInfo", name: "岗位信息表" },
+				]
+			})
+
+			// Alert Message
+			const trueAlertMsg = ref("")
+			const falseAlertMsg = ref("")
+
+			// Cancel
+			function cancel() {
+				trueAlertMsg.value = ""
+				falseAlertMsg.value = ""
+			}
+
+			// Button
+			const insertFile = () => {
+				// 清除Alert
+				cancel()
+
+				// Data
+				let form = $("#uploadForm")[0]
+				let data = new FormData(form);
+				data.append("tableName", $("#tableName").val())
+
+				// check
+				if(!checkFile()){
+					return
+				}
+
+				// Ajax
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + requestMapping + "/insertFile"
+				xhr.open("POST", url)
+				//xhr.setRequestHeader("Content-Type", "multipart/form-data")
+				xhr.send(data)
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+						if (maps.result) {
+							trueAlertMsg.value = maps.alertMsg
+							$("#csvfile").val("")
+						}
+						if (!maps.result) {
+							falseAlertMsg.value = maps.alertMsg
+						}
+					}
+				}
+			}
+
+			// check
+			function checkFile(){
+				let ext = $("#csvfile").val().split(".").pop()
+
+				if($("#csvfile").val() == ""){
+					// 没有选择档案
+					falseAlertMsg.value = [[#{alert.excel.noData}]]
+					return
+				}
+
+				if( !(ext== "xlsx" || ext== "xls") ){
+					// 目前只支援.xls 或 .xlsx
+					falseAlertMsg.value = [[#{alert.excel.noExcel}]]
+					return
+				}
+
+				return true
+			}
+
+			// Return============================
+			return {
+				// Data
+				...toRefs(data), trueAlertMsg, falseAlertMsg,
+
+				// Function
+				insertFile
+			}
+		}
+	})
+	app.mount("#app")
+</script>

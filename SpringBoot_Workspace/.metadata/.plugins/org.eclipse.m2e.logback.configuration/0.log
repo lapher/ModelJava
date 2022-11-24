@@ -3738,3 +3738,18 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.apache.po
 2022-11-24 11:51:17,396 [Worker-21: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2022-11-24 11:51:17,396 [Worker-21: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2022-11-24 11:51:17,396 [Worker-21: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_java\git\ModelJava\SpringBoot_Workspace\NewModel\src\test\resources
+2022-11-24 16:00:21,150 [Worker-25: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.example:NewModel:0.0.1-SNAPSHOT @ C:\_java\git\ModelJava\SpringBoot_Workspace\AcgWeb\pom.xml.
+2022-11-24 16:00:21,615 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-11-24 16:00:21,615 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-11-24 16:00:21,617 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-11-24 16:00:21,620 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 359 resources
+2022-11-24 16:00:22,544 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-11-24 16:00:22,544 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-11-24 16:00:22,544 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_java\git\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
+2022-11-24 16:00:25,678 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-11-24 16:00:25,678 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-11-24 16:00:25,714 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-11-24 16:00:25,749 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 359 resources
+2022-11-24 16:00:26,612 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-11-24 16:00:26,612 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-11-24 16:00:26,612 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_java\git\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
