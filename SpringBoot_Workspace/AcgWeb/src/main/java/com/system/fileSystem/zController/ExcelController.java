@@ -46,7 +46,7 @@ public class ExcelController {
 	// 上傳首頁
 	@GetMapping("/upload")
 	public String mainPage(Model model) {
-		model.addAttribute("mainPage", "excel_page/excelUpload");
+		model.addAttribute("mainPage", "excel_page/picUpload");
 		return "model/dashboard";
 	}
 
