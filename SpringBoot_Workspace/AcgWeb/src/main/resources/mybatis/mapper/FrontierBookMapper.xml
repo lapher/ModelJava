@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.web.mapper.FrontierBookMapper">
+	
+	<!-- 開啟二級緩存 6小時刷新-->
+<!-- 	<cache  flushInterval="21600000"/> -->
+	
+	<!-- FrontierBook selectID(FrontierBook bean); -->
+	<select id="selectID" resultType="FrontierBook">
+		select * from frontierbook where name = #{name}
+	</select>
+	
+	<!-- List<FrontierBook> selectAll() -->
+	<select id="selectAll" resultType="FrontierBook">
+		select * from frontierbook
+	</select>
+	
+	<!-- void insert(FrontierBook bean); -->
+	<insert id="insert">
+		insert
+		into frontierbook values(
+			 #{name},
+			 #{picDir},
+			 #{price},
+			 #{ffno},
+			 #{topic},
+			 #{auther},
+			 #{series},
+			 #{other}
+		 )
+	</insert>
+
+	<!-- void update(FrontierBook bean); -->
+	<update id="update">
+		update frontierbook set		
+			 picDir = #{picDir},
+			 price = #{price},
+			 ffno = #{ffno},
+			 topic = #{topic},
+			 auther = #{auther},
+			 series = #{series},
+			 other = #{other}	
+	
+		where name = #{name}
+	</update>
+
+	<!-- void delete(FrontierBook bean); -->
+	<delete id="delete">
+		delete from frontierbook where name = #{name}
+	</delete>
+
+</mapper>

@@ -1,0 +1,193 @@
+<div th:fragment="mainPage">
+	<!-- ======= Main ======= -->
+	<main id="main" class="main">
+		<div>
+			<!-- Page Title -->
+			<div class="pagetitle">
+				<h1 th:text="#{select_FrontierBook.title}">Title</h1>
+				<div @click=""></div>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+						<li class="breadcrumb-item active" th:text="#{select_FrontierBook.title}">breadcrumb
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<!-- Main Content -->
+			<section class="section">
+				<div class="row">
+					<div class="col-lg-12">
+
+						<!-- Detail Content -->
+						<div id="ContentArea"></div>
+
+
+						<!-- Table Content -->
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title" th:text="#{buttonPage.select}">查詢頁面</h5>
+								<div id="TableArea">
+									<!-- Center aligned spinner -->
+									<div class="d-flex justify-content-center">
+										<div class="spinner-border" role="status">
+											<span class="visually-hidden">Loading...</span>
+										</div>
+									</div><!-- End Center aligned spinner -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End Main Content -->
+		</div>
+
+	</main>
+	<!-- End #main -->
+</div>
+
+
+
+<!-- Sidebar -->
+<script>
+	$(function () {
+		// Sidebar
+		$("#select_page").removeClass("collapsed") 			// 顯示大標題
+		$("#select_page-nav").addClass("show")				// 展開選項
+		$("#sidebar_select_FrontierBook").addClass("active")// 顯示小標題
+	})
+</script>
+
+<script th:inline="javascript">
+	$(function () {
+		// Init
+		const baseUrl = /*[[@{/}]]*/ "/";
+		const requestMapping = "FrontierBook";
+		const pirPath = "C:\Users\Cary\Desktop\web\pic\";
+		getBeanAll();
+
+		// Data ====================================
+		let table_content = "";
+
+
+		// Table Content ==========================
+		function getBeanAll() {
+			let xhr = new XMLHttpRequest();
+			let url = baseUrl + requestMapping + "/getAll"
+			xhr.open("GET", url)
+			xhr.send()
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					table_content = JSON.parse(xhr.responseText).beanAll;
+
+					$('#TableArea').html(showAll(table_content))
+					$('#table_id').DataTable();
+				}
+			}
+		}
+
+		// content_button_check
+		$('#TableArea').on('click', '.content_button_check', function () {
+			let index = $(this).parent().parent().index()
+			let butto_index = $(".content_butto_index")[index].value
+			bean = table_content[Number(butto_index)];
+			$('#ContentArea').html(showContent(bean));
+		})
+
+		// content_button_cancel
+		$('#ContentArea').on('click', '#content_button_cancel', function () {
+			$('#ContentArea').html("");
+		})
+
+		// Data Output =================================
+		function showAll(beans) { // 全部資料-部分內容
+			let segment = ""
+
+			segment += `<table id="table_id" class="table table-sm table-striped" style="width:100%">`
+			segment +=
+				`<thead>
+					<tr>
+						<th scope="col">圖片</th>
+						<th scope="col">名稱</th>
+						<th scope="col">錢</th>
+						<th scope="col">FF No.</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				`
+			segment += `<tbody>`
+
+			for (let x = 0; x < beans.length; x++) {
+				const bean = beans[x]
+
+				// button
+				const buttonX =
+					`
+					<input type="button" class="content_button_check" value="詳細內容" class="btn btn-secondary btn-sm">
+					<input type="text" hidden value=" `+ x + ` " class="content_butto_index">
+					`
+
+                    // segment
+                    segment += "<tr >"
+                    segment += `<td> <img src="`+ pirPath + bean.picDir +`" class="img-thumbnail" alt="..."> </td>`
+                    segment += "<td>" + bean.name + "</td>"
+                    segment += "<td>" + bean.price + "</td>"
+                    segment += "<td>" + bean.ffno + "</td>"
+                    segment += "<td>" + buttonX + "</td>"
+                    segment += "</tr>"
+			}
+
+			segment += `</tbody></table>`
+			return segment;
+		}
+
+
+		function showContent(bean) { // 單筆資料-全部內容
+			let segment = ""
+
+			segment += `<div class="card">`
+			// 包含標題、關閉按鈕
+			segment += `
+						<div class="card-body">
+							<span class="ms-auto p-2 bd-highlight text-danger" style="font-size: 28px; float:right"  type="button" id="content_button_cancel">
+							<i class="ri-close-circle-line"></i>
+							</span>
+							<h5 class="card-title" th:text="#{buttonPage.select.detail}">詳細內容</h5>
+						`
+			// Table 內容
+			segment +=`
+						<!-- Small tables -->
+						<table class="table table-sm">
+							<thead>
+								<tr>
+									<th width="12%">柜员号</th>
+									<th width="12%">工号</th>
+									<th width="12%">内部机构号</th>
+									<th width="20%">金融许可证号</th>
+									<th >银行机构名称</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>`+ bean.teller_No +`</td>
+									<td>`+ bean.emplyee_No +`</td>
+									<td>`+ bean.branch_Code +`</td>
+									<td>`+ bean.license_No +`</td>
+									<td>`+ bean.branch_Name +`</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<!-- End small tables -->
+
+					</div>
+				</div>`
+
+			return segment;
+		}
+
+	})
+</script>
