@@ -66,7 +66,7 @@
 		// Init
 		const baseUrl = /*[[@{/}]]*/ "/";
 		const requestMapping = "FrontierBook";
-		const pirPath = "C:\Users\Cary\Desktop\web\pic\";
+		const picPath = [[#{editAFrontierBooklert.picPath}]]
 		getBeanAll();
 
 		// Data ====================================
@@ -132,7 +132,7 @@
 
                     // segment
                     segment += "<tr >"
-                    segment += `<td> <img src="`+ pirPath + bean.picDir +`" class="img-thumbnail" alt="..."> </td>`
+                    segment += `<td> <img src="`+ baseUrl + picPath + bean.picDir +`" class="img-thumbnail" alt="..."> </td>`
                     segment += "<td>" + bean.name + "</td>"
                     segment += "<td>" + bean.price + "</td>"
                     segment += "<td>" + bean.ffno + "</td>"
