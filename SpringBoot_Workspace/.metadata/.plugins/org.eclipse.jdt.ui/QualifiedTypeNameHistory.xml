@@ -26,4 +26,7 @@
     <fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
     <fullyQualifiedTypeName name="com.system.tools.SystemUtils"/>
     <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="com.system.web.mapper.FrontierBookService"/>
+    <fullyQualifiedTypeName name="com.system.web.bean.FrontierBook"/>
+    <fullyQualifiedTypeName name="org.springframework.core.io.ClassPathResource"/>
 </qualifiedTypeNameHistroy>

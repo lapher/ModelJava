@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.system.aShiro.bean.Account;
 import com.system.fileSystem.bean.ExcelOption;
 import com.system.tools.SystemUtils;
+import com.system.web.bean.FrontierBook;
+import com.system.web.mapper.FrontierBookService;
 
 @Controller
 @RequestMapping("/Pic")
@@ -40,10 +43,12 @@ public class PicController {
 	@Autowired
 	private MessageSource messageSource;
 	Locale locale = LocaleContextHolder.getLocale();
-
+	
 	@Autowired
 	private ExcelFunction excelFunction;
-
+	@Autowired
+	private FrontierBookService frontierBookService;
+	
 	// 上傳首頁
 	@GetMapping("/upload")
 	public String mainPage(Model model) {
@@ -113,21 +118,38 @@ public class PicController {
 			e.printStackTrace();
 		}
 
-		// upload file
+		
 		try {
-			// 儲存位置 C:\images\place\images
-			File imageFolder = new File(SystemUtils.PLACE_IMAGE_FOLDER, "images");
-
+			// upload file			
+//			File imageFolder = new File(SystemUtils.PLACE_IMAGE_FOLDER, "images"); // 儲存位置 C:\images\place\images
+//			/AcgWeb/src/main/java/com/system/fileSystem/zController/PicController.java
+//			/AcgWeb/src/main/resources/static/pic/frontierBook
+			ClassPathResource classPathResource = new ClassPathResource("static/pic/frontierBook");
+			File imageFolder = classPathResource.getFile();
+			
+//			File imageFolder = new File(classPathResource.toString(), "frontierBook");
+//			System.out.println(classPathResource.toString());
+//			
 			if (!imageFolder.exists()) {
 				imageFolder.mkdirs(); // 檔案不在，則自動建立
 			}
-			// 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
-			File file = new File(imageFolder, "MemverImage_" + nowData + nowTime + SystemUtils.getExFilename(name));
+			String picDir = "frontierBook_" + nowData + nowTime + SystemUtils.getExFilename(name);
+			File file = new File(imageFolder, picDir); 	// 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
 			placeImage.transferTo(file); // Mvc IO 上傳檔案
+		
+			
+			// upload DB
+			FrontierBook bean = new FrontierBook();
+			bean.setName("test"+nowTime);
+			bean.setPicDir(picDir);
+			frontierBookService.insert(bean);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
+		
+		
 		map.put("result", true);
 
 		return map;
