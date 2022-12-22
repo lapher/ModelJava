@@ -38,29 +38,99 @@
 							<!-- 選擇檔案 -->
 							<h5 class="card-title">查詢</h5>
 							<div class="row mb-3">
-								<!-- title -->
-								<div class="row">
-									<div class="col-5 text-black">選擇補登入的資料</div>
-								</div>
-								<!--  -->
+								<!-- Col 1 圖片-->
 								<div class="row mb-3">
-									<!-- 選擇檔案 -->
+									<div class="col-12">
+										<form enctype="multipart/form-data" id="uploadForm">
+											<input type="file" class="form-control" name="picfile" id="picfile">
+										</form>
+									</div>
+								</div>
+								<!-- Col 2 場次-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">場次</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="ffno">
+									</div>
 									<div class="col-4">
-										<select class="form-select" v-model="" id="tableName">
+										<select class="form-select" v-model="ffno">
 											<option v-for="option in options" :value="option.value">
 												{{ option.name }}
 											</option>
 										</select>
+									</div>									
+								</div>
+								<!-- Col 3 作者-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">作者</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="auther">
 									</div>
-									<!-- upload file -->
-									<div class="col-8">
-										<div class="col-sm-10">
-											<form enctype="multipart/form-data" id="uploadForm">
-												<input type="file" class="form-control" name="picfile" id="picfile">
-											</form>
-										</div>
+									<div class="col-4">
+										<select class="form-select" v-model="ffno">
+											<option v-for="option in options" :value="option.value">
+												{{ option.name }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 4 名稱-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">名稱</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="bookName">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="ffno">
+											<option v-for="option in options" :value="option.value">
+												{{ option.name }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 5 價格-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">價格</label>
+									<div class="col-6">
+										<input class="form-control" type="number" v-model="price">
+									</div>
+								</div>	
+								<!-- Col 6 主題-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">主題</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="ffno">
+											<option v-for="option in options" :value="option.value">
+												{{ option.name }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 7 系列-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">系列</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="series">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="ffno">
+											<option v-for="option in options" :value="option.value">
+												{{ option.name }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 7 其他-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">其他</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="other">
 									</div>
 								</div>
+																					
 								<!-- 按鈕 -->
 								<div class="d-flex bd-highlight">
 									<button type="submit" class="btn btn-primary me-1 p-2 bd-highlight"
@@ -119,7 +189,14 @@
 				options: [
 					// { value: "chinaCompany", name: "法报补录平台数据信息" },
 					// { value: "chinaJobInfo", name: "岗位信息表" },
-				]
+				],
+				ffno: "",		//場次
+				auther : "",	//作者
+				bookName : "",	//名稱 
+				price : "",		//錢 
+				topic : "",		//主題
+				series : "",	//系列 
+				other : ""		//其他 
 			})
 
 			// Alert Message
@@ -139,20 +216,26 @@
 
 				// Data
 				let form = $("#uploadForm")[0]
-				let data = new FormData(form);
-				data.append("tableName", $("#tableName").val())
+				let formData = new FormData(form);
+				formData.append("ffno", 	data.ffno)
+				formData.append("auther", 	data.auther)
+				formData.append("bookName", data.bookName)
+				formData.append("price", 	data.price)
+				formData.append("topic", 	data.topic)
+				formData.append("series", 	data.series)
+				formData.append("other", 	data.other)
 
 				// check
-					// if(!checkFile()){
-					// 	return
-					// }
+					if(!checkFile()){
+						return
+					}
 
 				// Ajax
 				let xhr = new XMLHttpRequest();
 				let url = baseUrl + requestMapping + "/insertFile"
 				xhr.open("POST", url)
 				//xhr.setRequestHeader("Content-Type", "multipart/form-data")
-				xhr.send(data)
+				xhr.send(formData)
 				xhr.onreadystatechange = function () {
 					if (xhr.readyState == 4 && xhr.status == 200) {
 						const maps = JSON.parse(xhr.responseText)
@@ -169,19 +252,19 @@
 
 			// check
 			function checkFile(){
-				let ext = $("#picfile").val().split(".").pop()
+				// let ext = $("#picfile").val().split(".").pop()
 
-				if($("#picfile").val() == ""){
+				if(data.bookName == ""){
 					// 没有选择档案
-					falseAlertMsg.value = [[#{alert.excel.noData}]]
+					falseAlertMsg.value = [[#{alert.pic.noBookName}]]
 					return
 				}
 
-				if( !(ext== "xlsx" || ext== "xls") ){
-					// 目前只支援.xls 或 .xlsx
-					falseAlertMsg.value = [[#{alert.excel.noExcel}]]
-					return
-				}
+				// if( !(ext== "xlsx" || ext== "xls") ){
+				// 	// 目前只支援.xls 或 .xlsx
+				// 	falseAlertMsg.value = [[#{alert.excel.noExcel}]]
+				// 	return
+				// }
 
 				return true
 			}

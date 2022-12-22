@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>NewModel</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>AcgWeb</artifactId>
+<!--	<version></version>-->
 	<packaging>war</packaging>
 	<name>NewModel</name>
 	<description>Demo project for Spring Boot</description>

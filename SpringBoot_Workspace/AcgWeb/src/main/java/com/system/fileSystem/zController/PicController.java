@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -39,16 +40,18 @@ import com.system.web.mapper.FrontierBookService;
 @Controller
 @RequestMapping("/Pic")
 public class PicController {
+	
 
+	
 	@Autowired
 	private MessageSource messageSource;
 	Locale locale = LocaleContextHolder.getLocale();
-	
+
 	@Autowired
 	private ExcelFunction excelFunction;
 	@Autowired
 	private FrontierBookService frontierBookService;
-	
+
 	// 上傳首頁
 	@GetMapping("/upload")
 	public String mainPage(Model model) {
@@ -71,8 +74,7 @@ public class PicController {
 		List<ExcelOption> excelOption = new ArrayList<ExcelOption>();
 
 		// data{Name, Value}
-		String[][] data = { { "FF39", "FF39" },
-							{ "FF40", "FF40" }	
+		String[][] data = { { "FF39", "FF39" }, { "FF40", "FF40" }
 
 		};
 
@@ -89,69 +91,83 @@ public class PicController {
 	// insert
 	@PostMapping(value = "/insertFile", consumes = { "multipart/form-data; charset=UTF-8" })
 	@ResponseBody
-	public Map<String, Object> insertFile(@RequestParam MultipartFile picfile, @RequestParam String tableName,
+	public Map<String, Object> insertFile(@RequestParam MultipartFile picfile, 
+			@RequestParam String ffno,
+			@RequestParam String auther,
+			@RequestParam String bookName,
+			@RequestParam String price,
+			@RequestParam String topic,
+			@RequestParam String series,
+			@RequestParam String other,
 			HttpSession httpSession) {
 		Map<String, Object> map = new HashMap<>();
 
-		// 使用者資料
-		Account account = (Account) httpSession.getAttribute("account");
-		String username = account.getUsername();
+		// 資料處理
 		String nowData = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 		String nowTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"));
-		String[] userData = { username, nowData, nowTime };
+
 
 		// Blob, MimeType 處理
-		Blob blob = null;
+//		Blob blob = null;
 		MultipartFile placeImage = picfile;
-		String mimeType = "";
+//		String mimeType = "";
 		String name = "";
 
 		try {
-			InputStream is = placeImage.getInputStream();
-			blob = SystemUtils.inputStreamToBlob(is);
+//			InputStream is = placeImage.getInputStream();
+//			blob = SystemUtils.inputStreamToBlob(is);
 			name = placeImage.getOriginalFilename(); // ex: peko.png
 //			mimeType = context.getMimeType(name); // ex: image/png
 //			place.setPicture(blob);
 //			place.setMimeType(mimeType);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		
 		
 		try {
-			// upload file			
+			// upload file
 //			File imageFolder = new File(SystemUtils.PLACE_IMAGE_FOLDER, "images"); // 儲存位置 C:\images\place\images
-//			/AcgWeb/src/main/java/com/system/fileSystem/zController/PicController.java
-//			/AcgWeb/src/main/resources/static/pic/frontierBook
-			ClassPathResource classPathResource = new ClassPathResource("static/pic/frontierBook");
-			File imageFolder = classPathResource.getFile();
 			
-//			File imageFolder = new File(classPathResource.toString(), "frontierBook");
-//			System.out.println(classPathResource.toString());
-//			
+			// 正式用
+//			String nowpath = System.getProperty("user.dir"); // \apache-tomcat-9.0.45\bin
+//			String[] split = nowpath.split("bin");
+//			String picPath = split[0] + "webapps"; // \apache-tomcat-9.0.45\webapps
+//			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
+			
+			// 測試用
+			String picPath = "C:\\_java\\git\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
+			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
+			
 			if (!imageFolder.exists()) {
 				imageFolder.mkdirs(); // 檔案不在，則自動建立
 			}
 			String picDir = "frontierBook_" + nowData + nowTime + SystemUtils.getExFilename(name);
-			File file = new File(imageFolder, picDir); 	// 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
+			File file = new File(imageFolder, picDir); // 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
 			placeImage.transferTo(file); // Mvc IO 上傳檔案
-		
-			
+
 			// upload DB
 			FrontierBook bean = new FrontierBook();
-			bean.setName("test"+nowTime);
+			bean.setName("test" + nowTime);
+			bean.setAuther(auther);
+			bean.setFfno(ffno);
+			bean.setName(bookName);
+			bean.setOther(other);
+			bean.setPrice(Integer.valueOf(price));
+			bean.setTopic(topic);
 			bean.setPicDir(picDir);
 			frontierBookService.insert(bean);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		map.put("result", true);
 
+		map.put("result", true);
+		map.put("alertMsg", messageSource.getMessage("alert.pic.ok", null, locale));
+		
+		
 		return map;
 	}
 
