@@ -120,9 +120,9 @@
 				`<thead>
 					<tr>
 						<th scope="col">圖片</th>
+						<th scope="col">作者</th>
 						<th scope="col">名稱</th>
-						<th scope="col">錢</th>
-						<th scope="col">FF No.</th>
+						
 						<th scope="col"></th>
 					</tr>
 				</thead>
@@ -142,9 +142,8 @@
                     // segment
                     segment += "<tr >"
                     segment += `<td> <img src="` + localhostPath + picPath + bean.picDir +`" class="img-thumbnail" alt="..."> </td>`
+                    segment += "<td>" + bean.auther + "</td>"
                     segment += "<td>" + bean.name + "</td>"
-                    segment += "<td>" + bean.price + "</td>"
-                    segment += "<td>" + bean.ffno + "</td>"
                     segment += "<td>" + buttonX + "</td>"
                     segment += "</tr>"
 			}
@@ -157,43 +156,44 @@
 		function showContent(bean) { // 單筆資料-全部內容
 			let segment = ""
 
-			segment += `<div class="card">`
-			// 包含標題、關閉按鈕
-			segment += `
-						<div class="card-body">
-							<span class="ms-auto p-2 bd-highlight text-danger" style="font-size: 28px; float:right"  type="button" id="content_button_cancel">
-							<i class="ri-close-circle-line"></i>
-							</span>
-							<h5 class="card-title" th:text="#{buttonPage.select.detail}">詳細內容</h5>
-						`
-			// Table 內容
-			segment +=`
-						<!-- Small tables -->
-						<table class="table table-sm">
-							<thead>
-								<tr>
-									<th width="12%">柜员号</th>
-									<th width="12%">工号</th>
-									<th width="12%">内部机构号</th>
-									<th width="20%">金融许可证号</th>
-									<th >银行机构名称</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>`+ bean.teller_No +`</td>
-									<td>`+ bean.emplyee_No +`</td>
-									<td>`+ bean.branch_Code +`</td>
-									<td>`+ bean.license_No +`</td>
-									<td>`+ bean.branch_Name +`</td>
-								</tr>
-							</tbody>
-						</table>
-						
-						<!-- End small tables -->
+			segment += 
+					`<div class="card mb-3">
+						<div class="row g-0">
+							<div class="col-md-4">
+								` + `
+								<img src="` + localhostPath + picPath + bean.picDir +`" class="img-thumbnail" alt="...">
+								` + `
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<span class="ms-auto p-2 bd-highlight text-danger" style="font-size: 28px; float:right"  type="button" id="content_button_cancel">
+										<i class="ri-close-circle-line"></i>
+									</span>
+									<h5 class="card-title">` + bean.name + `</h5>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item">場次: &ensp;` + bean.ffno + `</li>
+										<li class="list-group-item">作者: &ensp;` + bean.auther + `</li>
+										<li class="list-group-item">價格: &ensp;` + bean.price + `</li>
+										<li class="list-group-item">主題: &ensp;` + bean.topic + `</li>
+										<li class="list-group-item">系列: &ensp;` + bean.series + `</li>
+										<li class="list-group-item">其他: &ensp;` + bean.other + `</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>`
 
-					</div>
-				</div>`
+			// 包含標題、關閉按鈕
+			// segment += `
+			// 			<div class="card-body">
+			// 				<span class="ms-auto p-2 bd-highlight text-danger" style="font-size: 28px; float:right"  type="button" id="content_button_cancel">
+			// 				<i class="ri-close-circle-line"></i>
+			// 				</span>
+			// 				<h5 class="card-title" th:text="#{buttonPage.select.detail}">詳細內容</h5>
+			// 			`
+			// Table 內容
+
+
 
 			return segment;
 		}
