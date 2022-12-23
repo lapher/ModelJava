@@ -31,20 +31,26 @@
 				<a class="nav-link collapsed" data-bs-target="#select_page-nav" data-bs-toggle="collapse" href="#"
 					id="select_page">
 					<i class="bi bi-layout-text-window-reverse"></i>
-					<span>查询</span>
+					<span>邊境書籍</span>
 					<i class="bi bi-chevron-down ms-auto"></i>
 				</a>
 				<ul id="select_page-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-					<li>
+					<!-- <li>
 						<a th:href="@{/BeanA/select_page}"
 							id="sidebar_select_BeanA"> <i class="bi bi-circle"></i>
 							<span>BeanA查詢</span>
 						</a>
-					</li>
+					</li> -->
 				 	<li>
 						<a th:href="@{/FrontierBook/select_page}"
-							id="sidebar_select_FrontierBook"> <i class="bi bi-circle"></i>
-							<span>同人本查詢</span>
+							id="sidebar_FrontierBook"> <i class="bi bi-circle"></i>
+							<span>書籍</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/Pic/upload/}"
+							id="sidebar_ExcelUpload"> <i class="bi bi-circle"></i>
+							<span>上傳書籍</span>
 						</a>
 					</li>
 						<!--
@@ -152,7 +158,7 @@
 					<span>上传档案</span>
 				</a>
 			</li> -->
-			<li class="nav-item">
+			<!-- <li class="nav-item">
 				<a class="nav-link collapsed" th:href="@{/Pic/upload/}" id="sidebar_ExcelUpload">
 					<i class="bi bi-upload"></i>
 					<span>上傳圖片</span>
@@ -163,7 +169,7 @@
 					<i class="bi bi-download"></i>
 					<span>下载档案</span>
 				</a>
-			</li>
+			</li> -->
 		</ul>
 
 	</aside>

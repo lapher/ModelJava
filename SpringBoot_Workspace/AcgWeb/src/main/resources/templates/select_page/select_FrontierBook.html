@@ -25,6 +25,77 @@
 						<div id="ContentArea"></div>
 
 
+						<!-- Filter -->
+						<div class="card">
+							<div class="card-body">
+								<div class="accordion accordion-flush" id="accordionFlushExample">
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="flush-headingOne">
+										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" id="filterAccordionFlushExample">
+											資料篩選
+										</button>
+										</h2>
+										<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+											<div class="accordion-body">
+												<!-- Col 1 場次-->
+												<div class="row mb-3">
+													<label for="inputPassword" class="col-2 col-form-label">場次</label>
+													<div class="col-6">
+														<input class="form-control" type="text" id="ffnoInput">
+													</div>
+													<div class="col-4">
+														<select class="form-select" id="ffnoOptions">
+															<option></option>
+														</select>
+													</div>									
+												</div>
+												<!-- Col 2 作者-->
+												<div class="row mb-3">
+													<label for="inputPassword" class="col-2 col-form-label">作者</label>
+													<div class="col-6">
+														<input class="form-control" type="text" id="autherInput">
+													</div>
+													<div class="col-4">
+														<select class="form-select" id="autherOptions">
+															<option></option>
+														</select>
+													</div>									
+												</div>
+												<!-- Col 3 系列-->
+												<div class="row mb-3">
+													<label for="inputPassword" class="col-2 col-form-label">系列</label>
+													<div class="col-6">
+														<input class="form-control" type="text" id="seriesInput">
+													</div>
+													<div class="col-4">
+														<select class="form-select" id="seriesOptions">
+															<option></option>
+														</select>
+													</div>									
+												</div>
+												<!-- Col 4 主題-->
+												<div class="row mb-3">
+													<label for="inputPassword" class="col-2 col-form-label">主題</label>
+													<div class="col-6">
+														<input class="form-control" type="text" id="topicInput">
+													</div>
+													<div class="col-4">
+														<select class="form-select" id="topicOptions">
+															<option></option>
+														</select>
+													</div>									
+												</div>
+												<!-- 按鈕 -->
+												<div class="d-flex bd-highlight">
+													<button type="submit" class="btn btn-primary me-1 p-2 bd-highlight"
+														id="filterSubmit">Submit</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 						<!-- Table Content -->
 						<div class="card">
 							<div class="card-body">
@@ -57,7 +128,7 @@
 		// Sidebar
 		$("#select_page").removeClass("collapsed") 			// 顯示大標題
 		$("#select_page-nav").addClass("show")				// 展開選項
-		$("#sidebar_select_FrontierBook").addClass("active")// 顯示小標題
+		$("#sidebar_FrontierBook").addClass("active")// 顯示小標題
 	})
 </script>
 
@@ -66,23 +137,49 @@
 		// Init
 		const baseUrl = /*[[@{/}]]*/ "/";
 		const requestMapping = "FrontierBook";
-
-		//获取当前网址，如： http://localhost:8088/test/test.jsp
-		var curPath = window.document.location.href;
-		//获取主机地址之后的目录，如： test/test.jsp
-		var pathName = window.document.location.pathname;
+		
+		var curPath = window.document.location.href; //获取当前网址，如： http://localhost:8088/test/test.jsp		
+		var pathName = window.document.location.pathname; //获取主机地址之后的目录，如： test/test.jsp
 		var pos = curPath.indexOf(pathName);
-		//获取主机地址，如： http://localhost:8088
-		const localhostPath = curPath.substring(0, pos);
-
+		const localhostPath = curPath.substring(0, pos); //获取主机地址，如： http://localhost:8088
 		const picPath = [[#{editAFrontierBooklert.picPath}]]
+		
+		// Init Function
 		getBeanAll();
+		getOptions();
 
 		// Data ====================================
 		let table_content = "";
+		let ffnoOptions = "";
+		let autherOptions = "";
+		let seriesOptions = "";
+		let topicOptions = "";
+		let tempBean = ""
 
+		// getOptions ==============================
+		function getOptions() {
+			let xhr = new XMLHttpRequest();
+			let url = baseUrl + requestMapping + "/getOptions"
+			xhr.open("GET", url)
+			xhr.send()
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					const maps = JSON.parse(xhr.responseText)
+					ffnoOptions = maps.ffnoOptions
+					autherOptions = maps.autherOptions
+					seriesOptions = maps.seriesOptions
+					topicOptions = maps.topicOptions
 
-		// Table Content ==========================
+					//
+					showOptions("ffnoOptions", ffnoOptions)
+					showOptions("autherOptions", autherOptions)
+					showOptions("seriesOptions", seriesOptions)
+					showOptions("topicOptions", topicOptions)
+				}
+			}
+		}
+
+		// Table Content - getBeanAll==========================
 		function getBeanAll() {
 			let xhr = new XMLHttpRequest();
 			let url = baseUrl + requestMapping + "/getAll"
@@ -98,20 +195,129 @@
 			}
 		}
 
-		// content_button_check
+		// Filter Click
+		$('#ffnoOptions').on('change', function(){ $('#ffnoInput').val($('#ffnoOptions').val()) })
+		$('#autherOptions').on('change', function(){ $('#autherInput').val($('#autherOptions').val()) })
+		$('#seriesOptions').on('change', function(){ $('#seriesInput').val($('#seriesOptions').val()) })
+		$('#topicOptions').on('change', function(){ $('#topicInput').val($('#topicOptions').val()) })
+
+		// filterSubmit
+		$('#filterSubmit').on('click', function(){
+			let xhr2 = new XMLHttpRequest();
+			let url2 = baseUrl + requestMapping + "/getFilterAll"
+			var FrontierBook = {
+					"ffno": $('#ffnoInput').val(),         
+					"auther": $('#autherInput').val(),
+					"series": $('#seriesInput').val(),
+					"topic": $('#topicInput').val()
+			}
+
+			xhr2.open("POST", url2)
+			xhr2.setRequestHeader("Content-Type", "application/json");
+			xhr2.send(JSON.stringify(FrontierBook));
+			xhr2.onreadystatechange = function () {
+				if (xhr2.readyState == 4 && xhr2.status == 200) {
+					table_content = JSON.parse(xhr2.responseText).beanAll;
+					$('#TableArea').html(showAll(table_content))
+					$('#table_id').DataTable();
+					$('#filterAccordionFlushExample').click();
+				}
+			}
+		})
+
+		// Content 詳細內容 =================================
+		// content_button_check 顯示詳細內容 Click
 		$('#TableArea').on('click', '.content_button_check', function () {
 			let index = $(this).parent().parent().index()
 			let butto_index = $(".content_butto_index")[index].value
 			bean = table_content[Number(butto_index)];
+			tempBean = bean;
 			$('#ContentArea').html(showContent(bean));
+			$("html,body").animate( {scrollTop: 0} ) // 頁回到最頂點
+				
 		})
 
-		// content_button_cancel
+		// content_button_cancel 清除詳細內容
 		$('#ContentArea').on('click', '#content_button_cancel', function () {
-			$('#ContentArea').html("");
+			clearContentArea()
 		})
+
+		function clearContentArea() {
+			$('#ContentArea').html("");
+			tempBean = ""
+		}
+
+		// content_button_update 修改資料
+		$('#ContentArea').on('click', '#content_button_update', function () {
+			// Alert
+			let confirmAnswer = confirm("你確定要修改資料?");
+			if(!confirmAnswer){
+				return;
+			}
+
+			// tempBean 修改
+			tempBean.ffno = $('#ffnoUpdate').val()
+			tempBean.auther = $('#autherUpdate').val()
+			tempBean.price = $('#priceUpdate').val()
+			tempBean.topic = $('#topicUpdate').val()
+			tempBean.series = $('#seriesUpdate').val()
+			tempBean.other = $('#otherUpdate').val()
+		
+
+			// Ajax
+			let xhr4 = new XMLHttpRequest();
+			let url4 = baseUrl + requestMapping + "/update"
+			xhr4.open("POST", url4)
+			xhr4.setRequestHeader("Content-Type", "application/json");
+			xhr4.send(JSON.stringify(tempBean));
+			console.log(tempBean)
+			xhr4.onreadystatechange = function () {
+				if (xhr4.readyState == 4 && xhr4.status == 200) {
+					clearContentArea()
+
+					table_content = JSON.parse(xhr4.responseText).beanAll;
+					$('#TableArea').html(showAll(table_content))
+					$('#table_id').DataTable();
+				}
+			}
+				
+		})
+
+		// content_button_delete 刪除資料
+		$('#ContentArea').on('click', '#content_button_delete', function () {
+			// Alert
+			let confirmAnswer = confirm("你確定要刪除資料?");
+			if(!confirmAnswer){
+				return;
+			}
+			
+			// Ajax
+			let xhr3 = new XMLHttpRequest();
+			let url3 = baseUrl + requestMapping + "/delete"
+			xhr3.open("POST", url3)
+			xhr3.setRequestHeader("Content-Type", "application/json");
+			xhr3.send(JSON.stringify(tempBean));
+			console.log(tempBean)
+			xhr3.onreadystatechange = function () {
+				if (xhr3.readyState == 4 && xhr3.status == 200) {
+					clearContentArea()
+
+					table_content = JSON.parse(xhr3.responseText).beanAll;
+					$('#TableArea').html(showAll(table_content))
+					$('#table_id').DataTable();
+				}
+			}
+				
+		})
+
 
 		// Data Output =================================
+		function showOptions(optionId, beans) { // Filter 的選項
+			for (let x = 0; x < beans.length; x++) {
+				$('#' + optionId).append(new Option(beans[x].col)) // ('顯示文字', '值')
+			}	
+		}
+
 		function showAll(beans) { // 全部資料-部分內容
 			let segment = ""
 
@@ -121,7 +327,7 @@
 					<tr>
 						<th scope="col">圖片</th>
 						<th scope="col">作者</th>
-						<th scope="col">名稱</th>
+						<th scope="col">書名</th>
 						
 						<th scope="col"></th>
 					</tr>
@@ -135,7 +341,7 @@
 				// button
 				const buttonX =
 					`
-					<input type="button" class="content_button_check" value="詳細內容" class="btn btn-secondary btn-sm">
+					<input type="button" value="詳細內容" class="btn btn-secondary btn-sm content_button_check">
 					<input type="text" hidden value=" `+ x + ` " class="content_butto_index">
 					`
 
@@ -171,29 +377,59 @@
 									</span>
 									<h5 class="card-title">` + bean.name + `</h5>
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">場次: &ensp;` + bean.ffno + `</li>
-										<li class="list-group-item">作者: &ensp;` + bean.auther + `</li>
-										<li class="list-group-item">價格: &ensp;` + bean.price + `</li>
-										<li class="list-group-item">主題: &ensp;` + bean.topic + `</li>
-										<li class="list-group-item">系列: &ensp;` + bean.series + `</li>
-										<li class="list-group-item">其他: &ensp;` + bean.other + `</li>
+										<li class="list-group-item">
+											<div class="row">
+											<label for="inputPassword" class="col-3 col-form-label">場次</label>
+											<div class="col">
+												<input class="form-control" type="text" value="` + bean.ffno + `" id="ffnoUpdate">
+											</div></div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+											<label for="inputPassword" class="col-3 col-form-label">作者</label>
+											<div class="col">
+												<input class="form-control" type="text" value="` + bean.auther + ` "id="autherUpdate">
+											</div></div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+											<label for="inputPassword" class="col-3 col-form-label">價格</label>
+											<div class="col">
+												<input class="form-control" type="text" value="` + bean.price + `" "id="priceUpdate">
+											</div></div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+											<label for="inputPassword" class="col-3 col-form-label">主題</label>
+											<div class="col">
+												<input class="form-control" type="text" value="` + bean.topic + `" "id="topicUpdate">
+											</div></div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+											<label for="inputPassword" class="col-3 col-form-label">系列</label>
+											<div class="col">
+												<input class="form-control" type="text" value="` + bean.series + `" "id="seriesUpdate">
+											</div></div>
+										</li>
+										<li class="list-group-item">
+											<div class="row">
+											<label for="inputPassword" class="col-3 col-form-label">其他</label>
+											<div class="col">
+												<input class="form-control" type="text" value="` + bean.other + `" "id="otherUpdate">
+											</div></div>
+										</li>
 									</ul>
+									<div class="row mt-1">
+										<div class="col-7"></div>
+										<button type="submit" class="col-2 btn btn-secondary bd-highlight p-2" id="content_button_update">修改</button>
+										<div class="col-1"></div>
+										<button type="submit" class="col-2 btn btn-danger bd-highlight" id="content_button_delete">刪除</button>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>`
-
-			// 包含標題、關閉按鈕
-			// segment += `
-			// 			<div class="card-body">
-			// 				<span class="ms-auto p-2 bd-highlight text-danger" style="font-size: 28px; float:right"  type="button" id="content_button_cancel">
-			// 				<i class="ri-close-circle-line"></i>
-			// 				</span>
-			// 				<h5 class="card-title" th:text="#{buttonPage.select.detail}">詳細內容</h5>
-			// 			`
-			// Table 內容
-
-
 
 			return segment;
 		}

@@ -14,5 +14,7 @@ public interface FrontierBookMapper {
 	void insert(FrontierBook bean);
 	void update(FrontierBook bean);
 	void delete(FrontierBook bean);
-
+	
+	//Filter
+	List<FrontierBook> selectFilterAll(FrontierBook bean);
 }

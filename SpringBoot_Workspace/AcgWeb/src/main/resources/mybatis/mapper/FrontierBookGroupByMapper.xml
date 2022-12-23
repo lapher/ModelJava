@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.groupBy.mapper.FrontierBookGroupByMapper">
+	
+	<!-- 開啟二級緩存 6小時刷新-->
+	<!-- <cache  flushInterval="21600000"/>
+	<cache />-->
+	
+	
+	<!-- List<FrontierBook_ffno> groupByFFno(); -->
+	<select id="groupByFFno" resultType="FrontierBook_ffno">
+		select ffno col from frontierbook GROUP By ffno;
+	</select>
+	
+	<!-- List<FrontierBook_auther> groupByAuther(); -->
+	<select id="groupByAuther" resultType="FrontierBook_auther">
+		select auther col from frontierbook GROUP By auther;
+	</select>
+	
+	<!-- List<FrontierBook_series> groupBySeries(); -->
+	<select id="groupBySeries" resultType="FrontierBook_series">
+		select series col from frontierbook GROUP By series;
+	</select>
+	
+	<!-- List<FrontierBook_topic> groupByTopic(); -->
+	<select id="groupByTopic" resultType="FrontierBook_topic">
+		select topic col from frontierbook GROUP By topic;
+	</select>
+	
+
+	
+	
+
+</mapper>

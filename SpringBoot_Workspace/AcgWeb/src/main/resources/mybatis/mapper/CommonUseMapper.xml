@@ -3,7 +3,7 @@
 <mapper namespace="com.system.web.mapper.CommonUseMapper">
 
 	<!-- 開啟二級緩存 -->
-	<!-- 	<cache  /> -->
+	<cache />
 
 	<!-- List<ColOptions> selectColOptions(ColOptions bean); -->
 	<select id="selectColOptions" resultType="ColOptions">

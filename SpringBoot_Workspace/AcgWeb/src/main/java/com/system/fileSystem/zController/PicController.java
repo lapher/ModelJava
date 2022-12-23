@@ -1,9 +1,6 @@
 package com.system.fileSystem.zController;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +17,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.system.aShiro.bean.Account;
 import com.system.fileSystem.bean.ExcelOption;
+import com.system.groupBy.mapper.FrontierBookGroupByService;
 import com.system.tools.SystemUtils;
 import com.system.web.bean.FrontierBook;
 import com.system.web.mapper.FrontierBookService;
@@ -51,6 +46,9 @@ public class PicController {
 	private ExcelFunction excelFunction;
 	@Autowired
 	private FrontierBookService frontierBookService;
+	@Autowired
+	private FrontierBookGroupByService frontierBookGroupByService;
+	
 
 	// 上傳首頁
 	@GetMapping("/upload")
@@ -71,19 +69,23 @@ public class PicController {
 	public @ResponseBody Map<String, Object> getBeanAll() {
 		Map<String, Object> map = new HashMap<>();
 
-		List<ExcelOption> excelOption = new ArrayList<ExcelOption>();
+//		List<ExcelOption> excelOption = new ArrayList<ExcelOption>();
 
 		// data{Name, Value}
-		String[][] data = { { "FF39", "FF39" }, { "FF40", "FF40" }
-
-		};
-
-		for (int x = 0; x < data.length; x++) {
-			ExcelOption bean = new ExcelOption(data[x][0], data[x][1]);
-			excelOption.add(bean);
-		}
-
-		map.put("options", excelOption);
+//		String[][] data = { { "FF39", "FF39" }, { "FF40", "FF40" }
+//
+//		};
+//
+//		for (int x = 0; x < data.length; x++) {
+//			ExcelOption bean = new ExcelOption(data[x][0], data[x][1]);
+//			excelOption.add(bean);
+//		}
+		
+		
+		map.put("ffnoOptions", frontierBookGroupByService.groupByFFno());
+		map.put("autherOptions", frontierBookGroupByService.groupByAuther());
+		map.put("seriesOptions", frontierBookGroupByService.groupBySeries());
+		map.put("topicOptions", frontierBookGroupByService.groupByTopic());
 
 		return map;
 	}
@@ -156,6 +158,7 @@ public class PicController {
 			bean.setName(bookName);
 			bean.setOther(other);
 			bean.setPrice(Integer.valueOf(price));
+			bean.setSeries(series);
 			bean.setTopic(topic);
 			bean.setPicDir(picDir);
 			frontierBookService.insert(bean);

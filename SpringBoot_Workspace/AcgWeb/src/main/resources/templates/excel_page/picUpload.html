@@ -3,12 +3,12 @@
 		<div id="app" v-cloak>
 			<!-- Page Title -->
 			<div class="pagetitle">
-				<h1>上傳圖片</h1>
+				<h1>上傳資料</h1>
 				<div @click=""></div>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-						<li class="breadcrumb-item active">上傳圖片</li>
+						<li class="breadcrumb-item active">上傳資料</li>
 					</ol>
 				</nav>
 			</div>
@@ -54,8 +54,8 @@
 									</div>
 									<div class="col-4">
 										<select class="form-select" v-model="ffno">
-											<option v-for="option in options" :value="option.value">
-												{{ option.name }}
+											<option v-for="option in ffnoOptions" :value="option.col">
+												{{ option.col }}
 											</option>
 										</select>
 									</div>									
@@ -67,26 +67,26 @@
 										<input class="form-control" type="text" v-model="auther">
 									</div>
 									<div class="col-4">
-										<select class="form-select" v-model="ffno">
-											<option v-for="option in options" :value="option.value">
-												{{ option.name }}
+										<select class="form-select" v-model="auther">
+											<option v-for="option in autherOptions" :value="option.col">
+												{{ option.col }}
 											</option>
 										</select>
 									</div>									
 								</div>
 								<!-- Col 4 名稱-->
 								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">名稱</label>
+									<label for="inputPassword" class="col-2 col-form-label">書名</label>
 									<div class="col-6">
 										<input class="form-control" type="text" v-model="bookName">
 									</div>
-									<div class="col-4">
+									<!-- <div class="col-4">
 										<select class="form-select" v-model="ffno">
 											<option v-for="option in options" :value="option.value">
 												{{ option.name }}
 											</option>
 										</select>
-									</div>									
+									</div>									 -->
 								</div>
 								<!-- Col 5 價格-->
 								<div class="row mb-3">
@@ -95,35 +95,35 @@
 										<input class="form-control" type="number" v-model="price">
 									</div>
 								</div>	
-								<!-- Col 6 主題-->
-								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">主題</label>
-									<div class="col-6">
-										<input class="form-control" type="text" v-model="topic">
-									</div>
-									<div class="col-4">
-										<select class="form-select" v-model="ffno">
-											<option v-for="option in options" :value="option.value">
-												{{ option.name }}
-											</option>
-										</select>
-									</div>									
-								</div>
-								<!-- Col 7 系列-->
+								<!-- Col 6 系列-->
 								<div class="row mb-3">
 									<label for="inputPassword" class="col-2 col-form-label">系列</label>
 									<div class="col-6">
 										<input class="form-control" type="text" v-model="series">
 									</div>
 									<div class="col-4">
-										<select class="form-select" v-model="ffno">
-											<option v-for="option in options" :value="option.value">
-												{{ option.name }}
+										<select class="form-select" v-model="series">
+											<option v-for="option in seriesOptions" :value="option.col">
+												{{ option.col }}
 											</option>
 										</select>
 									</div>									
 								</div>
-								<!-- Col 7 其他-->
+								<!-- Col 7 主題-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">主題</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 8 其他-->
 								<div class="row mb-3">
 									<label for="inputPassword" class="col-2 col-form-label">其他</label>
 									<div class="col-6">
@@ -133,8 +133,10 @@
 																					
 								<!-- 按鈕 -->
 								<div class="d-flex bd-highlight">
-									<button type="submit" class="btn btn-primary me-1 p-2 bd-highlight"
+									<button type="submit" class="btn btn-primary me-3 p-2 bd-highlight"
 										@click="insertFile">Submit</button>
+									<button type="submit" class="btn btn-secondary me-1 p-2 bd-highlight"
+										@click="clearData">清空</button>
 								</div>
 							</div>
 
@@ -154,7 +156,9 @@
 <script>
 	$(function () {
 		// Sidebar
-		$("#sidebar_ExcelUpload").removeClass("collapsed")
+		$("#select_page").removeClass("collapsed") 			// 顯示大標題
+		$("#select_page-nav").addClass("show")				// 展開選項
+		$("#sidebar_ExcelUpload").addClass("active")		// 顯示小標題
 	})
 </script>
 
@@ -179,23 +183,27 @@
 				xhr.onreadystatechange = function () {
 					if (xhr.readyState == 4 && xhr.status == 200) {
 						const maps = JSON.parse(xhr.responseText)
-						data.options = maps.options
+						data.ffnoOptions = maps.ffnoOptions
+						data.autherOptions = maps.autherOptions
+						data.seriesOptions = maps.seriesOptions
+						data.topicOptions = maps.topicOptions
 					}
 				}
 			}
 
 			// Data
 			const data = reactive({
-				options: [
-					// { value: "chinaCompany", name: "法报补录平台数据信息" },
-					// { value: "chinaJobInfo", name: "岗位信息表" },
-				],
+				ffnoOptions: [ ], 		// { col: "ff39"}
+				autherOptions: [ ], 	// { col: "作者"}
+				seriesOptions: [ ], 	// { col: "系列"}
+				topicOptions: [ ], 		// { col: "主題"}
+
 				ffno: "",		//場次
 				auther : "",	//作者
 				bookName : "",	//名稱 
-				price : "",		//錢 
-				topic : "",		//主題
+				price : 0,		//錢 
 				series : "",	//系列 
+				topic : "",		//主題
 				other : ""		//其他 
 			})
 
@@ -207,6 +215,18 @@
 			function cancel() {
 				trueAlertMsg.value = ""
 				falseAlertMsg.value = ""
+			}
+
+			function clearData() {
+				cancel()
+				$("#picfile").val("")
+				data.ffno = ""
+				data.auther = ""
+				data.bookName = ""
+				data.price = 0
+				data.series = ""
+				data.topic = ""
+				data.other = ""
 			}
 
 			// Button insert
@@ -241,7 +261,8 @@
 						const maps = JSON.parse(xhr.responseText)
 						if (maps.result) {
 							trueAlertMsg.value = maps.alertMsg
-							$("#picfile").val("")
+							$("#picfile").val("") // 清除圖片
+							$("html,body").animate( {scrollTop: 0}); // 網頁回到最頂點
 						}
 						if (!maps.result) {
 							falseAlertMsg.value = maps.alertMsg
@@ -260,11 +281,19 @@
 					return
 				}
 
-				// if( !(ext== "xlsx" || ext== "xls") ){
-				// 	// 目前只支援.xls 或 .xlsx
-				// 	falseAlertMsg.value = [[#{alert.excel.noExcel}]]
-				// 	return
-				// }
+				// 補齊資料
+				if(data.ffno == ""){
+					data.ffno = "--"
+				}
+				if(data.auther == ""){
+					data.auther = "--"
+				}
+				if(data.series == ""){
+					data.series = "--"
+				}
+				if(data.topic == ""){
+					data.topic = "--"
+				}
 
 				return true
 			}
@@ -275,7 +304,7 @@
 				...toRefs(data), trueAlertMsg, falseAlertMsg,
 
 				// Function
-				insertFile
+				insertFile, clearData
 			}
 		}
 	})

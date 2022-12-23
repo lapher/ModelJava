@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.system.aShiro.bean.Account;
+import com.system.groupBy.mapper.FrontierBookGroupByService;
 import com.system.web.bean.ColOptions;
 import com.system.web.bean.FrontierBook;
 import com.system.web.mapper.CommonUseMapperService;
@@ -37,7 +38,9 @@ public class FrontierBookController {
 	FrontierBookService service;
 	@Autowired
 	CommonUseMapperService commonUseService;
-
+	@Autowired
+	private FrontierBookGroupByService frontierBookGroupByService;
+	
 	@Autowired
 	private MessageSource messageSource;
 	Locale locale = LocaleContextHolder.getLocale();
@@ -63,6 +66,18 @@ public class FrontierBookController {
 
 		// SQL
 		List<FrontierBook> beanAll = service.selectAll();
+		map.put("beanAll", beanAll);
+
+		return map;
+	}
+	
+	// SelectFilterAll
+	@PostMapping(value = "/getFilterAll", consumes = "application/json")
+	public @ResponseBody Map<String, Object> getFilterAll(@RequestBody FrontierBook bean) {
+		Map<String, Object> map = new HashMap<>();
+
+		// SQL
+		List<FrontierBook> beanAll = service.selectFilterAll(bean);
 		map.put("beanAll", beanAll);
 
 		return map;
@@ -103,8 +118,8 @@ public class FrontierBookController {
 		}
 
 		// 重新查詢
-		FrontierBook select_bean = service.selectID(bean);
-		map.put("Bean", select_bean);
+		List<FrontierBook> beanAll = service.selectAll();
+		map.put("beanAll", beanAll);
 
 		return map;
 	}
@@ -115,7 +130,7 @@ public class FrontierBookController {
 		Map<String, Object> map = new HashMap<>();
 
 		// Account Bean
-		Account account = (Account) httpSession.getAttribute("account");
+//		Account account = (Account) httpSession.getAttribute("account");
 //		bean.setMaintainUser(account.getUsername());
 //		bean.setMaintainDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
 //		bean.setMaintainTime(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
@@ -129,8 +144,8 @@ public class FrontierBookController {
 		}
 
 		// 重新查詢
-		FrontierBook select_bean = service.selectID(bean);
-		map.put("Bean", select_bean);
+		List<FrontierBook> beanAll = service.selectAll();
+		map.put("beanAll", beanAll);
 
 		return map;
 	}
@@ -144,8 +159,8 @@ public class FrontierBookController {
 		service.delete(bean);
 
 		// 重新查詢
-		FrontierBook select_bean = service.selectID(bean);
-		map.put("Bean", select_bean);
+		List<FrontierBook> beanAll = service.selectAll();
+		map.put("beanAll", beanAll);
 
 		return map;
 	}
@@ -155,24 +170,10 @@ public class FrontierBookController {
 	public @ResponseBody Map<String, Object> getTypes() {
 		Map<String, Object> map = new HashMap<>();
 
-		// get All Options
-		ColOptions colOptions = new ColOptions();
-		colOptions.setTable_Name("Teller_Information");
-		List<ColOptions> optionsList = commonUseService.selectColOptions(colOptions);
-		String[] optionName = { "real_Teller_Flag", "teller_Auth_Level", "teller_Status", "teller_Type" };
-
-		//
-		for (String name : optionName) {
-			List<ColOptions> option = new ArrayList<ColOptions>();
-			for (ColOptions data : optionsList) {
-				if (data.getCol_Name().equals(name)) {
-					option.add(data);
-				}
-			}
-			// return
-			map.put(name, option);
-		}
-
+		map.put("ffnoOptions", frontierBookGroupByService.groupByFFno());
+		map.put("autherOptions", frontierBookGroupByService.groupByAuther());
+		map.put("seriesOptions", frontierBookGroupByService.groupBySeries());
+		map.put("topicOptions", frontierBookGroupByService.groupByTopic());
 		return map;
 	}
 

@@ -22,6 +22,11 @@ public class FrontierBookService {
 	public List<FrontierBook> selectAll() {
 		return mapper.selectAll();
 	}
+	
+	// select Filter All
+	public 	List<FrontierBook> selectFilterAll(FrontierBook bean) {
+		return mapper.selectFilterAll(bean);
+	}
 
 	// insert
 	public Boolean insert(FrontierBook bean) {
@@ -47,7 +52,7 @@ public class FrontierBookService {
 //			return true;
 //		}
 		// 規則: 如果ID存在 才允許新增
-		if (checkBean.getName().equals(bean.getName())) {
+		if (checkBean.getPicDir().equals(bean.getPicDir())) {
 			mapper.update(bean);
 			return true;
 		}

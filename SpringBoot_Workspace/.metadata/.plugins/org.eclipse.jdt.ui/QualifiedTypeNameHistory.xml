@@ -29,4 +29,7 @@
     <fullyQualifiedTypeName name="com.system.web.mapper.FrontierBookService"/>
     <fullyQualifiedTypeName name="com.system.web.bean.FrontierBook"/>
     <fullyQualifiedTypeName name="org.springframework.core.io.ClassPathResource"/>
+    <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
+    <fullyQualifiedTypeName name="org.apache.ibatis.javassist.SerialVersionUID"/>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
 </qualifiedTypeNameHistroy>
