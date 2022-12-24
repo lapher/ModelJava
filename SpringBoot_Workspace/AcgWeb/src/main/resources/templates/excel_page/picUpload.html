@@ -234,6 +234,11 @@
 				// 清除Alert
 				cancel()
 
+				// check
+				if(!checkFile()){
+					return
+				}
+
 				// Data
 				let form = $("#uploadForm")[0]
 				let formData = new FormData(form);
@@ -245,10 +250,7 @@
 				formData.append("series", 	data.series)
 				formData.append("other", 	data.other)
 
-				// check
-					if(!checkFile()){
-						return
-					}
+
 
 				// Ajax
 				let xhr = new XMLHttpRequest();
@@ -282,17 +284,20 @@
 				}
 
 				// 補齊資料
-				if(data.ffno == ""){
+				if(data.ffno.length == 0){
 					data.ffno = "--"
 				}
-				if(data.auther == ""){
+				if(data.auther.length == 0){
 					data.auther = "--"
 				}
-				if(data.series == ""){
+				if(data.series.length == 0){
 					data.series = "--"
 				}
-				if(data.topic == ""){
+				if(data.topic.length == 0){
 					data.topic = "--"
+				}
+				if(data.other.length == 0){
+					data.other = "--"
 				}
 
 				return true

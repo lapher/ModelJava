@@ -134,14 +134,15 @@ public class PicController {
 //			File imageFolder = new File(SystemUtils.PLACE_IMAGE_FOLDER, "images"); // 儲存位置 C:\images\place\images
 			
 			// 正式用
-//			String nowpath = System.getProperty("user.dir"); // \apache-tomcat-9.0.45\bin
-//			String[] split = nowpath.split("bin");
-//			String picPath = split[0] + "webapps"; // \apache-tomcat-9.0.45\webapps
-//			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
+			String nowpath = System.getProperty("user.dir"); // \apache-tomcat-9.0.45\bin
+			String[] split = nowpath.split("bin");
+			String picPath = split[0] + "webapps"; // \apache-tomcat-9.0.45\webapps
+			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
 			
 			// 測試用
-			String picPath = "C:\\_java\\git\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
-			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
+//			String picPath = "C:\\_java\\git\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
+//			String picPath = "C:\\_Git\\ModelJava\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
+//			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
 			
 			if (!imageFolder.exists()) {
 				imageFolder.mkdirs(); // 檔案不在，則自動建立
