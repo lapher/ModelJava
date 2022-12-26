@@ -32,6 +32,8 @@ import com.system.tools.SystemUtils;
 import com.system.web.bean.FrontierBook;
 import com.system.web.mapper.FrontierBookService;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 @Controller
 @RequestMapping("/Pic")
 public class PicController {
@@ -134,23 +136,33 @@ public class PicController {
 //			File imageFolder = new File(SystemUtils.PLACE_IMAGE_FOLDER, "images"); // 儲存位置 C:\images\place\images
 			
 			// 正式用
-			String nowpath = System.getProperty("user.dir"); // \apache-tomcat-9.0.45\bin
-			String[] split = nowpath.split("bin");
-			String picPath = split[0] + "webapps"; // \apache-tomcat-9.0.45\webapps
-			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
+//			String nowpath = System.getProperty("user.dir"); // \apache-tomcat-9.0.45\bin
+//			String[] split = nowpath.split("bin");
+//			String picPath = split[0] + "webapps"; // \apache-tomcat-9.0.45\webapps
+//			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
+//			File thumbnailsFolder = new File(picPath, "/pic/frontierBook/Thumbnails"); // 儲存位置
 			
 			// 測試用
-//			String picPath = "C:\\_java\\git\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
+			String picPath = "C:\\_java\\git\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
 //			String picPath = "C:\\_Git\\ModelJava\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
-//			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
+			File imageFolder = new File(picPath, "/pic/frontierBook"); // 儲存位置
+			File thumbnailsFolder = new File(picPath, "/pic/frontierBook/Thumbnails"); // 儲存位置
 			
-			if (!imageFolder.exists()) {
-				imageFolder.mkdirs(); // 檔案不在，則自動建立
+			if (!imageFolder.exists()) { // 檔案不在，則自動建立
+				imageFolder.mkdirs(); 
 			}
-			String picDir = "frontierBook_" + nowData + nowTime + SystemUtils.getExFilename(name);
-			File file = new File(imageFolder, picDir); // 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
+			if (!thumbnailsFolder.exists()) { // 檔案不在，則自動建立
+				thumbnailsFolder.mkdirs(); 
+			}
+			
+			String fileName = "frontierBook_" + nowData + nowTime + SystemUtils.getExFilename(name);
+			File file = new File(imageFolder, fileName); // 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
+			File thumbnailsfile = new File(thumbnailsFolder, fileName); // 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
 			placeImage.transferTo(file); // Mvc IO 上傳檔案
-
+			
+			// 將原始倘案壓縮
+			Thumbnails.of(file).scale(0.2f).outputQuality(0.5f).toFile(thumbnailsfile);
+			
 			// upload DB
 			FrontierBook bean = new FrontierBook();
 			bean.setName("test" + nowTime);
@@ -161,7 +173,7 @@ public class PicController {
 			bean.setPrice(Integer.valueOf(price));
 			bean.setSeries(series);
 			bean.setTopic(topic);
-			bean.setPicDir(picDir);
+			bean.setPicDir(fileName);
 			frontierBookService.insert(bean);
 
 		} catch (Exception e) {

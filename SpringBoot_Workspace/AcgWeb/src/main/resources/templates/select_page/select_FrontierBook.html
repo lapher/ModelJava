@@ -142,8 +142,9 @@
 		var pathName = window.document.location.pathname; //获取主机地址之后的目录，如： test/test.jsp
 		var pos = curPath.indexOf(pathName);
 		const localhostPath = curPath.substring(0, pos); //获取主机地址，如： http://localhost:8088
-		const picPath = [[#{editAFrontierBooklert.picPath}]]
-		
+		const picPath = [[#{select_FrontierBook.picPath}]]
+		const picPathThumbnails = [[#{select_FrontierBook.picPathThumbnails}]]
+
 		// Init Function
 		getBeanAll();
 		getOptions();
@@ -388,7 +389,7 @@
 
                     // segment
                     segment += "<tr >"
-                    segment += `<td> <img src="` + localhostPath + picPath + bean.picDir +`" class="img-thumbnail" alt="..."> </td>`
+                    segment += `<td> <img src="` + localhostPath + picPathThumbnails + bean.picDir +`" class="img-thumbnail" alt="..."> </td>`
                     segment += "<td>" + bean.auther + "</td>"
                     segment += "<td>" + bean.name + "</td>"
                     segment += "<td>" + buttonX + "</td>"

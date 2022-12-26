@@ -32,4 +32,5 @@
     <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
     <fullyQualifiedTypeName name="org.apache.ibatis.javassist.SerialVersionUID"/>
     <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="net.coobird.thumbnailator.Thumbnails"/>
 </qualifiedTypeNameHistroy>
