@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.system.aShiro.bean.Account;
+import com.system.groupBy.bean.FrontierBookFilter;
 import com.system.groupBy.mapper.FrontierBookGroupByService;
 import com.system.web.bean.ColOptions;
 import com.system.web.bean.FrontierBook;
@@ -59,6 +60,14 @@ public class FrontierBookController {
 		return "model/dashboard";
 	}
 
+	// 圖表
+	@GetMapping("/charts")
+	public String mainCharts(Model model) {
+		model.addAttribute("mainPage", "charts/charts_FrontierBook");
+		return "model/dashboard";
+	}
+	
+	
 	// SelectAll
 	@GetMapping(value = "/getAll")
 	public @ResponseBody Map<String, Object> getBeanAll() {
@@ -83,6 +92,23 @@ public class FrontierBookController {
 		return map;
 	}
 
+	// SelectCharts
+	@GetMapping(value = "/getCharts")
+	public @ResponseBody Map<String, Object> getBean() {
+		Map<String, Object> map = new HashMap<>();
+		
+
+		map.put("count", frontierBookGroupByService.count());
+		map.put("countByAuther", frontierBookGroupByService.groupByAuther().size());
+		map.put("countBySeries", frontierBookGroupByService.groupBySeries().size());
+		map.put("countByPrice", frontierBookGroupByService.countByPrice());
+		map.put("chartsByAuther", frontierBookGroupByService.chartsByAuther());
+		map.put("chartsBySeries", frontierBookGroupByService.chartsBySeries());
+		
+		
+		return map;
+	}
+
 	// Select
 	@PostMapping(value = "/getBean", consumes = "application/json")
 	public @ResponseBody Map<String, Object> getBean(@RequestBody FrontierBook bean) {
@@ -98,7 +124,8 @@ public class FrontierBookController {
 
 		return map;
 	}
-
+	
+	
 	// Insert
 	@PostMapping(value = "/insert", consumes = "application/json")
 	public @ResponseBody Map<String, Object> insertBean(@RequestBody FrontierBook bean, HttpSession httpSession) {

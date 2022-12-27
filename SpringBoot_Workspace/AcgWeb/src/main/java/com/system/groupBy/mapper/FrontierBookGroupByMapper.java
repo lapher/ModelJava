@@ -2,18 +2,25 @@ package com.system.groupBy.mapper;
 
 import java.util.List;
 
-import com.system.groupBy.bean.FrontierBook_auther;
-import com.system.groupBy.bean.FrontierBook_ffno;
-import com.system.groupBy.bean.FrontierBook_series;
-import com.system.groupBy.bean.FrontierBook_topic;
+import com.system.groupBy.bean.FrontierBookChatrs;
+import com.system.groupBy.bean.FrontierBookFilter;
 
 public interface FrontierBookGroupByMapper {
 	
 	
-	//Bean
-	List<FrontierBook_ffno> groupByFFno();
-	List<FrontierBook_auther> groupByAuther();
-	List<FrontierBook_series> groupBySeries();
-	List<FrontierBook_topic> groupByTopic();
+	//Filter
+	List<FrontierBookFilter> groupByFFno();
+	List<FrontierBookFilter> groupByAuther();
+	List<FrontierBookFilter> groupBySeries();
+	List<FrontierBookFilter> groupByTopic();
+	
+	//Count
+	int count();
+	FrontierBookChatrs countByPrice();// value: totalPrice; name: total of 0 price
+	
+	
+	//Charts
+	List<FrontierBookChatrs> chartsByAuther();
+	List<FrontierBookChatrs> chartsBySeries();
 
 }

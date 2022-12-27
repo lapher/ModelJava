@@ -1,6 +1,7 @@
 content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.apache.shiro.ShiroException"><rhs name\="org.apache.shiro.authc.UnknownAccountException"/><rhs name\="org.apache.shiro.authc.LockedAccountException"/><rhs name\="org.apache.shiro.authc.IncorrectCredentialsException"/></lhs><lhs name\="java.lang.RuntimeException"><rhs name\="org.apache.shiro.authc.UnknownAccountException"/><rhs name\="org.apache.shiro.authc.LockedAccountException"/><rhs name\="org.apache.shiro.authc.IncorrectCredentialsException"/></lhs><lhs name\="java.lang.Exception"><rhs name\="org.apache.shiro.authc.UnknownAccountException"/><rhs name\="org.apache.shiro.authc.LockedAccountException"/><rhs name\="org.apache.shiro.authc.IncorrectCredentialsException"/></lhs><lhs name\="java.lang.Throwable"><rhs name\="org.apache.shiro.authc.UnknownAccountException"/><rhs name\="org.apache.shiro.authc.LockedAccountException"/><rhs name\="org.apache.shiro.authc.IncorrectCredentialsException"/></lhs><lhs name\="org.apache.shiro.authc.AuthenticationException"><rhs name\="org.apache.shiro.authc.UnknownAccountException"/><rhs name\="org.apache.shiro.authc.LockedAccountException"/><rhs name\="org.apache.shiro.authc.IncorrectCredentialsException"/></lhs></history>
 content_assist_number_of_computers=15
 eclipse.preferences.version=1
+markOccurrences=false
 org.eclipse.jdt.ui.formatterprofiles.version=22
 spelling_locale_initialized=true
 typefilter_migrated_2=true

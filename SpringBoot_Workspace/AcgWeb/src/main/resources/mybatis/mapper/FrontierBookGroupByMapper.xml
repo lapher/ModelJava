@@ -8,29 +8,51 @@
 	<!-- <cache  flushInterval="21600000"/>
 	<cache />-->
 	
-	
-	<!-- List<FrontierBook_ffno> groupByFFno(); -->
-	<select id="groupByFFno" resultType="FrontierBook_ffno">
+	<!-- Filter -->
+	<!-- List<FrontierBookFilter> groupByFFno(); -->
+	<select id="groupByFFno" resultType="FrontierBookFilter">
 		select ffno col from frontierbook GROUP By ffno;
 	</select>
 	
-	<!-- List<FrontierBook_auther> groupByAuther(); -->
-	<select id="groupByAuther" resultType="FrontierBook_auther">
+	<!-- List<FrontierBookFilter> groupByAuther(); -->
+	<select id="groupByAuther" resultType="FrontierBookFilter">
 		select auther col from frontierbook GROUP By auther;
 	</select>
 	
-	<!-- List<FrontierBook_series> groupBySeries(); -->
-	<select id="groupBySeries" resultType="FrontierBook_series">
+	<!-- List<FrontierBookFilter> groupBySeries(); -->
+	<select id="groupBySeries" resultType="FrontierBookFilter">
 		select series col from frontierbook GROUP By series;
 	</select>
 	
-	<!-- List<FrontierBook_topic> groupByTopic(); -->
-	<select id="groupByTopic" resultType="FrontierBook_topic">
+	<!-- List<FrontierBookFilter> groupByTopic(); -->
+	<select id="groupByTopic" resultType="FrontierBookFilter">
 		select topic col from frontierbook GROUP By topic;
 	</select>
 	
-
 	
+	<!-- Count -->
+	<!-- int count(); -->
+	<select id="count" resultType="int">
+		SELECT COUNT(*) col FROM frontierbook;
+	</select>
+	
+	<!-- FrontierBookChatrs countByPrice();// value: totalPrice; name: total of 0 price -->
+	<select id="countByPrice" resultType="FrontierBookChatrs">
+		SELECT sum(price) 'value', (select COUNT(*) FROM frontierbook WHERE price = 0) 'name' FROM frontierbook;
+	</select>
+	
+	
+	
+	<!-- Charts -->
+	<!-- List<FrontierBookChatrs> chartsByAuther(); -->
+	<select id="chartsByAuther" resultType="FrontierBookChatrs">
+		SELECT auther 'name', COUNT(*) 'value' FROM frontierbook GROUP BY auther ORDER BY 2 DESC LIMIT 5;
+	</select>	
+	
+	<!-- List<FrontierBookChatrs> chartsBySeries(); -->
+	<select id="chartsBySeries" resultType="FrontierBookChatrs">
+		SELECT series 'name', COUNT(*) 'value' FROM frontierbook GROUP BY series ORDER BY 2 DESC LIMIT 5;
+	</select>	
 	
 
 </mapper>

@@ -28,19 +28,25 @@
 
 			<!-- 查詢 select_page-->
 			<li class="nav-item">
-				<a class="nav-link collapsed" data-bs-target="#select_page-nav" data-bs-toggle="collapse" href="#"
-					id="select_page">
+				<a class="nav-link collapsed" data-bs-target="#frontierBook_page-nav" data-bs-toggle="collapse" href="#"
+					id="frontierBook_page">
 					<i class="bi bi-layout-text-window-reverse"></i>
 					<span>邊境書籍</span>
 					<i class="bi bi-chevron-down ms-auto"></i>
 				</a>
-				<ul id="select_page-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+				<ul id="frontierBook_page-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 					<!-- <li>
 						<a th:href="@{/BeanA/select_page}"
 							id="sidebar_select_BeanA"> <i class="bi bi-circle"></i>
 							<span>BeanA查詢</span>
 						</a>
 					</li> -->
+					<li>
+						<a th:href="@{/FrontierBook/charts}"
+							id="sidebar_FrontierBook_charts"> <i class="bi bi-circle"></i>
+							<span>總攬</span>
+						</a>
+					</li>
 				 	<li>
 						<a th:href="@{/FrontierBook/select_page}"
 							id="sidebar_FrontierBook"> <i class="bi bi-circle"></i>
@@ -49,7 +55,7 @@
 					</li>
 					<li>
 						<a th:href="@{/Pic/upload/}"
-							id="sidebar_ExcelUpload"> <i class="bi bi-circle"></i>
+							id="sidebar_FrontierBook_upload"> <i class="bi bi-circle"></i>
 							<span>上傳書籍</span>
 						</a>
 					</li>

@@ -1,0 +1,314 @@
+<div th:fragment="mainPage">
+	<!-- ======= Main ======= -->
+	<main id="main" class="main">
+		<div id="app" v-cloak>
+			<!-- Page Title -->
+			<div class="pagetitle">
+				<h1 th:text="#{charts_FrontierBook.title}">標題</h1>
+				<div @click=""></div>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+						<li class="breadcrumb-item active" th:text="#{charts_FrontierBook.title}">標題</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<!-- Main Content -->
+			<section class="section dashboard">
+				<div class="row">
+					<!-- Select Alert -->
+					<div class="alert alert-danger alert-dismissible fade show" role="alert"
+						v-if=" selectAlertMsg !=  '' ">
+						{{ selectAlertMsg }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+							@click=" selectAlertMsg = '' "></button>
+					</div>
+
+					<!-- Left side columns -->
+					<div class="col-lg-8">
+						<div class="row">
+				
+							<!-- 邊境書籍 Card -->
+							<div class="col">
+							<div class="card info-card sales-card">
+								<div class="card-body">
+								<h5 class="card-title">邊境書籍 <span></h5>
+				
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+									<i class="bi bi-book-half"></i>
+									</div>
+									<div class="ps-3">
+									<h6>{{count}} &thinsp;本</h6>
+									<!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+				 -->
+									</div>
+								</div>
+								</div>
+				
+							</div>
+							</div><!-- End Sales Card -->
+
+							<!-- 作者 Card -->
+							<!-- <div class="col-4">
+								<div class="card info-card customers-card">
+								<div class="card-body">
+									<h5 class="card-title">作者 <span></h5>				
+									<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="bi bi-people"></i>
+									</div>
+									<div class="ps-3">
+										<h6>1244</h6>
+									</div>
+									</div>				
+								</div>
+								</div>
+							</div> -->
+							<!-- End Customers Card -->	
+										
+							<!-- 總價 Card -->
+							<div class="col">
+							<div class="card info-card revenue-card">
+				
+								<div class="card-body">
+								<h5 class="card-title">總價 <span></h5>
+				
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+									<i class="bi bi-currency-dollar"></i>
+									</div>
+									<div class="ps-3">
+									<h6>$ {{countByPrice.value}}</h6>
+									<span class="text-success small pt-1 fw-bold">{{countByPrice.name}} 本</span> <span class="text-muted small pt-2 ps-1">未計價</span>
+				
+									</div>
+								</div>
+								</div>
+				
+							</div>
+							</div><!-- End Revenue Card -->
+							
+							<!-- 系列 Traffic -->
+							<!-- <div class="col-12">
+							<div class="card">
+								<div class="card-body pb-0">
+								<h5 class="card-title">邊境系列<span>| {{countBySeries}}&thinsp;類 &thinsp;(Top5)</span></h5>
+
+								<div id="seriesChart" style="min-height: 400px;" class="echart"></div>
+
+								<script>
+									document.addEventListener("DOMContentLoaded", () => {
+									echarts.init(document.querySelector("#seriesChart")).setOption({
+										tooltip: {
+										trigger: 'item'
+										},
+										legend: {
+										top: '5%',
+										left: 'center'
+										},
+										series: [{
+										name: 'Access From',
+										type: 'pie',
+										radius: ['40%', '70%'],
+										avoidLabelOverlap: false,
+										label: {
+											show: false,
+											position: 'center'
+										},
+										emphasis: {
+											label: {
+											show: true,
+											fontSize: '18',
+											fontWeight: 'bold'
+											}
+										},
+										labelLine: {
+											show: false
+										},
+										data: {{chartsBySeries}}
+										}]
+									});
+									});
+								</script>
+
+								</div>
+							</div>
+							</div> -->
+							<!-- End Website Traffic -->
+							
+							<!-- 作者 Traffic -->
+							<div class="col-12">
+							<div class="card">
+								<div class="card-body pb-0">
+								<h5 class="card-title">邊境作者<span>| {{countByAuther}}&thinsp;人&thinsp;(Top5)</span></h5>
+
+								<div id="authorChart" style="min-height: 400px;" class="echart"></div>
+
+								<!-- <script>
+									document.addEventListener("DOMContentLoaded", () => {
+									echarts.init(document.querySelector("#authorChart")).setOption({
+										tooltip: {
+										trigger: 'item'
+										},
+										legend: {
+										top: '5%',
+										left: 'center'
+										},
+										series: [{
+										name: 'Access From',
+										type: 'pie',
+										radius: ['40%', '70%'],
+										avoidLabelOverlap: false,
+										label: {
+											show: false,
+											position: 'center'
+										},
+										emphasis: {
+											label: {
+											show: true,
+											fontSize: '18',
+											fontWeight: 'bold'
+											}
+										},
+										labelLine: {
+											show: false
+										},
+										data: {{chartsByAuther}}
+										}]
+									});
+									});
+								</script> -->
+
+								</div>
+							</div>
+						    </div><!-- End Website Traffic -->
+				
+						</div>
+					</div><!-- End Left side columns -->
+
+				</div>
+			</section>
+			<!-- End Main Content -->
+		</div>
+
+	</main>
+	<!-- End #main -->
+</div>
+
+
+<!-- Sidebar -->
+<script>
+	$(function () {
+		// Sidebar
+		$("#frontierBook_page").removeClass("collapsed") 			// 顯示大標題
+		$("#frontierBook_page-nav").addClass("show")				// 展開選項
+		$("#sidebar_FrontierBook_charts").addClass("active")	// 顯示小標題
+	})
+</script>
+
+<!-- Vue -->
+<script type="module" th:inline="javascript">
+	import { createApp, ref, reactive, toRefs, onMounted } from "../../js/vue.esm-browser.min.js";
+	const baseUrl = [[${ #servletContext.contextPath }]];
+	const requestMapping = "/FrontierBook";
+
+	const app = createApp({
+		setup() {
+			// Init
+			onMounted(() => {
+				getCharts()
+				getPieA()
+			})
+
+			// 取得 Charts	
+			function getCharts() {
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + requestMapping + "/getCharts"
+				xhr.open("GET", url)
+				xhr.send()
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+						datas.count = maps.count
+						datas.countByAuther = maps.countByAuther
+						datas.countByPrice = maps.countByPrice
+						datas.countBySeries = maps.countBySeries
+						datas.chartsByAuther = maps.chartsByAuther
+						datas.chartsBySeries = maps.chartsBySeries
+					}
+
+				}
+			}
+
+			// Data
+			const datas = reactive({
+				count: "", 				// 總本數					
+				countByAuther: "", 		// 總作者數量					
+				countBySeries: "", 		// 總系列數量					
+				countByPrice: {   // 總價
+					// value: totalPrice,
+					// name:  total of 0 price
+				},
+				chartsByAuther: [ // pie by 作者
+					// value: ,
+					// name: 
+				],
+				chartsBySeries: [ // pie by 系列
+
+				]
+				
+			})		
+
+
+			//
+			function getPieA() {
+				console.log(datas.chartsBySeries[0])
+				echarts.init(document.querySelector("#authorChart")).setOption({
+					tooltip: {
+					trigger: 'item'
+					},
+					legend: {
+					top: '5%',
+					left: 'center'
+					},
+					series: [{
+						name: 'Access From',
+						type: 'pie',
+						radius: ['40%', '70%'],
+						avoidLabelOverlap: false,
+						label: {
+							show: false,
+							position: 'center'
+						},
+						emphasis: {
+							label: {
+							show: true,
+							fontSize: '18',
+							fontWeight: 'bold'
+							}
+						},
+						labelLine: {
+							show: false
+						},
+						data: [datas.chartsBySeries]
+					}]
+				});
+			};
+
+			// Return============================
+			return {
+				// Data
+				...toRefs(datas)
+
+				// function
+				
+
+
+			}
+		}
+	})
+	app.mount("#app")
+</script>
