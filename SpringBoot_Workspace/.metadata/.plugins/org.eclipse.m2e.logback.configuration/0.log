@@ -8000,3 +8000,67 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.apache.po
 2022-12-28 11:11:54,865 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2022-12-28 11:11:54,865 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2022-12-28 11:11:54,865 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_java\git\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
+2022-12-29 07:30:07,671 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2022-12-29 07:30:16,828 [Worker-3: Update Maven projects configuration] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2022-12-29 07:30:19,002 [Worker-3: Update Maven projects configuration] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.example:AcgWeb:2.7.5 @ C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb\pom.xml.
+2022-12-29 07:30:23,269 [Worker-3: Update Maven projects configuration] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /AcgWeb/src/main/java
+2022-12-29 07:30:23,269 [Worker-3: Update Maven projects configuration] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /AcgWeb/src/main/resources
+2022-12-29 07:30:23,283 [Worker-3: Update Maven projects configuration] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /AcgWeb/src/main/resources
+2022-12-29 07:30:23,297 [Worker-3: Update Maven projects configuration] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /AcgWeb/src/test/java
+2022-12-29 07:30:26,994 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:26,994 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:26,999 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-12-29 07:30:27,017 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 387 resources
+2022-12-29 07:30:31,378 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:31,378 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:31,378 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
+2022-12-29 07:30:32,920 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:32,920 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:32,956 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-12-29 07:30:32,992 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 387 resources
+2022-12-29 07:30:33,968 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:33,968 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:33,968 [Worker-4: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
+2022-12-29 07:30:34,478 [Worker-3: Update Maven projects configuration] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 17 sec
+2022-12-29 07:30:39,475 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:39,475 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:39,475 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-12-29 07:30:39,475 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-12-29 07:30:39,478 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:39,478 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:39,478 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
+2022-12-29 07:30:45,734 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:45,734 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:45,768 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-12-29 07:30:45,814 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 387 resources
+2022-12-29 07:30:45,911 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:45,911 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:45,911 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
+2022-12-29 07:30:55,428 [Worker-9: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2022-12-29 07:30:55,680 [Worker-9: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.example:AcgWeb:2.7.5 @ C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb\pom.xml.
+2022-12-29 07:30:56,234 [Worker-9: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /AcgWeb/src/main/java
+2022-12-29 07:30:56,234 [Worker-9: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /AcgWeb/src/main/resources
+2022-12-29 07:30:56,236 [Worker-9: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /AcgWeb/src/main/resources
+2022-12-29 07:30:56,238 [Worker-9: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /AcgWeb/src/test/java
+2022-12-29 07:30:56,726 [Worker-9: Updating Maven Project] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for AcgWeb
+2022-12-29 07:30:56,730 [Worker-9: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 1 sec
+2022-12-29 07:30:57,094 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:57,094 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:57,096 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-12-29 07:30:57,108 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 387 resources
+2022-12-29 07:30:57,977 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:57,977 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:30:57,977 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
+2022-12-29 07:30:57,977 [Worker-2: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of AcgWeb
+2022-12-29 07:30:57,978 [Worker-2: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for AcgWeb
+2022-12-29 07:30:57,981 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:30:57,981 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:31:10,814 [Worker-1: Launching Executing install in C___Git_ModelJava_ModelJava_SpringBoot_Workspace_AcgWeb] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb
+2022-12-29 07:31:10,816 [Worker-1: Launching Executing install in C___Git_ModelJava_ModelJava_SpringBoot_Workspace_AcgWeb] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B -Dstyle.color=always install
+2022-12-29 07:31:31,283 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:31:31,284 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:31:31,315 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-12-29 07:31:31,374 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 387 resources
+2022-12-29 07:31:31,489 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-12-29 07:31:31,489 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-12-29 07:31:31,489 [Worker-5: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\_Git\ModelJava\ModelJava\SpringBoot_Workspace\AcgWeb\src\test\resources
