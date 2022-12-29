@@ -25,7 +25,6 @@
     <fullyQualifiedTypeName name="java.sql.Blob"/>
     <fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
     <fullyQualifiedTypeName name="com.system.tools.SystemUtils"/>
-    <fullyQualifiedTypeName name="java.io.File"/>
     <fullyQualifiedTypeName name="com.system.web.mapper.FrontierBookService"/>
     <fullyQualifiedTypeName name="com.system.web.bean.FrontierBook"/>
     <fullyQualifiedTypeName name="org.springframework.core.io.ClassPathResource"/>
@@ -34,4 +33,5 @@
     <fullyQualifiedTypeName name="java.io.Serializable"/>
     <fullyQualifiedTypeName name="net.coobird.thumbnailator.Thumbnails"/>
     <fullyQualifiedTypeName name="com.system.groupBy.bean.FrontierBookChatrs"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
 </qualifiedTypeNameHistroy>

@@ -1,6 +1,6 @@
 package com.system.web.zController;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.system.aShiro.bean.Account;
-import com.system.groupBy.bean.FrontierBookFilter;
 import com.system.groupBy.mapper.FrontierBookGroupByService;
-import com.system.web.bean.ColOptions;
 import com.system.web.bean.FrontierBook;
 import com.system.web.mapper.CommonUseMapperService;
 import com.system.web.mapper.FrontierBookService;
@@ -183,8 +181,32 @@ public class FrontierBookController {
 		Map<String, Object> map = new HashMap<>();
 
 		// SQL
+		String fileName = bean.getPicDir();
 		service.delete(bean);
-
+		
+		// 檔案移動&刪除
+		// 正式用
+		String nowpath = System.getProperty("user.dir"); // \apache-tomcat-9.0.45\bin
+		String[] split = nowpath.split("bin");
+		String picPath = split[0] + "webapps"; // \apache-tomcat-9.0.45\webapps
+	
+		// 測試用
+//		String picPath = "C:\\_java\\git\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
+//		String picPath = "C:\\_Git\\ModelJava\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
+		
+		File imageFile = new File(picPath, "/pic/frontierBook/" + fileName); // 儲存位置
+		File thumbnailsFile = new File(picPath, "/pic/frontierBook/Thumbnails/" + fileName); // 儲存位置
+		File deleteFolder = new File(picPath, "/pic/del/frontierBook"); // 儲存位置
+		File deleteFile = new File(picPath, "/pic/del/frontierBook/" + fileName); // 儲存位置
+		
+		if (!deleteFolder.exists()) { // 檔案不在，則自動建立
+			deleteFolder.mkdirs(); 
+		}
+		
+		// 縮圖刪除 原圖搬移
+		thumbnailsFile.delete();
+		imageFile.renameTo(deleteFile);
+		
 		// 重新查詢
 		List<FrontierBook> beanAll = service.selectAll();
 		map.put("beanAll", beanAll);
