@@ -51,7 +51,7 @@
 	
 	<!-- List<FrontierBookChatrs> chartsBySeries(); -->
 	<select id="chartsBySeries" resultType="FrontierBookChatrs">
-		SELECT series 'name', COUNT(*) 'value' FROM frontierbook GROUP BY series ORDER BY 2 DESC LIMIT 5;
+		SELECT series 'name', COUNT(*) 'value' FROM frontierbook WHERE series != '--' GROUP BY series ORDER BY 2 DESC LIMIT 5;
 	</select>	
 	
 

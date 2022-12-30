@@ -45,16 +45,9 @@ public class FrontierBookGroupByService {
 	public List<FrontierBookChatrs> chartsByAuther() {
 		List<FrontierBookChatrs> chartsByAuther = mapper.chartsByAuther();
 
+		
 		// other Value
-		int topValue = 0;
-		int otherValue = 0;
-		for (FrontierBookChatrs bean : chartsByAuther) {
-			int value = bean.getValue();
-			topValue = topValue + value;
-		}
-
-		int count = mapper.count();
-		otherValue = count - topValue;
+		int otherValue = getOtherValue(chartsByAuther);	
 		if (otherValue != 0) {
 			FrontierBookChatrs bean = new FrontierBookChatrs();
 			bean.setName("other");
@@ -65,19 +58,19 @@ public class FrontierBookGroupByService {
 		return chartsByAuther;
 	};
 
-	public List<FrontierBookChatrs> chartsBySeries() {
+	/**
+	 * 
+	 * @return true: 需要顯示other false: 不要other
+	 */
+	public List<FrontierBookChatrs> chartsBySeries(Boolean isOtherValue) {
 		List<FrontierBookChatrs> chartsBySeries = mapper.chartsBySeries();
-
-		// other Value
-		int topValue = 0;
-		int otherValue = 0;
-		for (FrontierBookChatrs bean : chartsBySeries) {
-			int value = bean.getValue();
-			topValue = topValue + value;
+		
+		if(!isOtherValue) { // 如果不要Other Value 則直接回傳
+			return chartsBySeries;
 		}
-
-		int count = mapper.count();
-		otherValue = count - topValue;
+		
+		// other Value
+		int otherValue = getOtherValue(chartsBySeries);		
 		if (otherValue != 0) {
 			FrontierBookChatrs bean = new FrontierBookChatrs();
 			bean.setName("other");
@@ -87,5 +80,20 @@ public class FrontierBookGroupByService {
 
 		return chartsBySeries;
 	};
+
+	// 取得 Other Value 的值
+	private int getOtherValue(List<FrontierBookChatrs> listFrontierBookChatrs) {
+		int topValue = 0;
+		int otherValue = 0;
+		for (FrontierBookChatrs bean : listFrontierBookChatrs) {
+			int value = bean.getValue();
+			topValue = topValue + value;
+		}
+
+		int count = mapper.count();
+		otherValue = count - topValue;
+
+		return otherValue;
+	}
 
 }
