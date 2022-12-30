@@ -154,7 +154,8 @@ public class PicController {
 				thumbnailsFolder.mkdirs(); 
 			}
 			
-			String fileName = "frontierBook_" + nowData + nowTime + SystemUtils.getExFilename(name);
+			// class + bookName + time
+			String fileName = "frontierBook_" + bookName + "_" + nowData + nowTime + SystemUtils.getExFilename(name);
 			File file = new File(imageFolder, fileName); // 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
 			File thumbnailsfile = new File(thumbnailsFolder, fileName); // 儲存位置+檔名 C:\images\place\images\MemverImage_ID.png
 			placeImage.transferTo(file); // Mvc IO 上傳檔案

@@ -26,7 +26,7 @@
 				</ul>
 			</li> -->
 
-			<!-- 查詢 select_page-->
+			<!-- 邊境書籍 查詢 select_page-->
 			<li class="nav-item">
 				<a class="nav-link collapsed" data-bs-target="#frontierBook_page-nav" data-bs-toggle="collapse" href="#"
 					id="frontierBook_page">
@@ -35,12 +35,6 @@
 					<i class="bi bi-chevron-down ms-auto"></i>
 				</a>
 				<ul id="frontierBook_page-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-					<!-- <li>
-						<a th:href="@{/BeanA/select_page}"
-							id="sidebar_select_BeanA"> <i class="bi bi-circle"></i>
-							<span>BeanA查詢</span>
-						</a>
-					</li> -->
 					<li>
 						<a th:href="@{/FrontierBook/charts/}"
 							id="sidebar_FrontierBook_charts"> <i class="bi bi-circle"></i>
@@ -59,37 +53,24 @@
 							<span>上傳書籍</span>
 						</a>
 					</li>
-						<!--
+				</ul>
+			</li>
+
+			<!-- Game 查詢 select_page-->
+			<li class="nav-item">
+				<a class="nav-link collapsed" data-bs-target="#Game_page-nav" data-bs-toggle="collapse" href="#"
+					id="Game_page">
+					<i class="bi bi-layout-text-window-reverse"></i>
+					<span>遊戲類</span>
+					<i class="bi bi-chevron-down ms-auto"></i>
+				</a>
+				<ul id="Game_page-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 					<li>
-						<a th:href="@{/Employee_Information/select_page}"
-							id="sidebar_select_Employee_Information"> <i class="bi bi-circle"></i>
-							<span>员工表查詢</span>
-						</a>
-					</li> -->
-					<!-- <li>
-						<a th:href="@{/Organization_Information/select_page}"
-							id="sidebar_select_Organization_Information"> <i class="bi bi-circle"></i>
-							<span>机构信息及机构关系查詢</span>
-						</a>
-					</li> -->
-					<!-- <li>
-						<a th:href="@{/Organization_Basic_Information/select_page}"
-							id="sidebar_select_Organization_Basic_Information"> <i class="bi bi-circle"></i>
-							<span>机构讯息</span>
+						<a th:href="@{/Game/select_page/}"
+							id="sidebar_Game"> <i class="bi bi-circle"></i>
+							<span>遊戲</span>
 						</a>
 					</li>
-					<li>
-						<a th:href="@{/Organization_Relationship_Information/select_page}"
-							id="sidebar_select_Organization_Relationship_Information"> <i class="bi bi-circle"></i>
-							<span>机构关系</span>
-						</a>
-					</li>
-					<li>
-						<a th:href="@{/Customer_Financial_Report/select_page}"
-							id="sidebar_select_Customer_Financial_Report"> <i class="bi bi-circle"></i>
-							<span>企业财务报表查詢</span>
-						</a>
-					</li> -->
 				</ul>
 			</li>
 
