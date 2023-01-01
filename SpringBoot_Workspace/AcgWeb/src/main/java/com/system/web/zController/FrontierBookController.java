@@ -186,13 +186,13 @@ public class FrontierBookController {
 		
 		// 檔案移動&刪除
 		// 正式用
-//		String nowpath = System.getProperty("user.dir"); // \apache-tomcat-9.0.45\bin
-//		String[] split = nowpath.split("bin");
-//		String picPath = split[0] + "webapps"; // \apache-tomcat-9.0.45\webapps
+		String nowpath = System.getProperty("user.dir"); // \apache-tomcat-9.0.45\bin
+		String[] split = nowpath.split("bin");
+		String picPath = split[0] + "webapps"; // \apache-tomcat-9.0.45\webapps
 	
 		// 測試用
 //		String picPath = "C:\\_java\\git\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
-		String picPath = "C:\\_Git\\ModelJava\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
+//		String picPath = "C:\\_Git\\ModelJava\\ModelJava\\SpringBoot_Workspace\\AcgWeb\\src\\main\\resources\\static";
 		
 		File imageFile = new File(picPath, "/pic/frontierBook/" + fileName); // 儲存位置
 		File thumbnailsFile = new File(picPath, "/pic/frontierBook/Thumbnails/" + fileName); // 儲存位置
