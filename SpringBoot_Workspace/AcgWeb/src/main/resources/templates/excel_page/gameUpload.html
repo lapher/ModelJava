@@ -1,0 +1,323 @@
+<div th:fragment="mainPage">
+	<main id="main" class="main">
+		<div id="app" v-cloak>
+			<!-- Page Title -->
+			<div class="pagetitle">
+				<h1>上傳遊戲</h1>
+				<div @click=""></div>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+						<li class="breadcrumb-item active">上傳遊戲</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<!-- Main Content -->
+			<section class="section dashboard">
+				<div class="row">
+					<!-- Alert Msg-->
+					<div class="alert alert-primary alert-dismissible fade show" role="alert"
+						v-if=" trueAlertMsg !=  '' ">
+						{{ trueAlertMsg }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+							@click=" trueAlertMsg = '' "></button>
+					</div>
+					<div class="alert alert-danger alert-dismissible fade show" role="alert"
+						v-if=" falseAlertMsg !=  '' ">
+						{{ falseAlertMsg }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+							@click=" falseAlertMsg = '' "></button>
+					</div>
+
+
+					<!-- 查詢 -->
+					<div class="card">
+						<div class="card-body">
+							<!-- 選擇檔案 -->
+							<h5 class="card-title">上傳圖片</h5>
+							<div class="row mb-3">
+								<!-- Col 1 圖片-->
+								<div class="row mb-3">
+									<div class="col-12">
+										<form enctype="multipart/form-data" id="uploadForm">
+											<input type="file" class="form-control" name="picfile" id="picfile">
+										</form>
+									</div>
+								</div>
+								<!-- Col 2 場次-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">場次</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="ffno">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="ffno">
+											<option v-for="option in ffnoOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 3 作者-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">作者</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="auther">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="auther" @change="test('auther', auther)">
+											<option v-for="option in autherOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>
+								</div>
+								<!-- Col 4 名稱-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">書名</label>
+									<div class="col-10">
+										<input class="form-control" type="text" v-model="bookName">
+									</div>
+									<!-- <div class="col-4">
+										<select class="form-select" v-model="ffno">
+											<option v-for="option in options" :value="option.value">
+												{{ option.name }}
+											</option>
+										</select>
+									</div>									 -->
+								</div>
+								<!-- Col 5 價格-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">價格</label>
+									<div class="col-6">
+										<input class="form-control" type="number" v-model="price">
+									</div>
+								</div>	
+								<!-- Col 6 系列-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">系列</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="series">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="series">
+											<option v-for="option in seriesOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 7 主題-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">主題</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 8 其他-->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">其他</label>
+									<div class="col-10">
+										<input class="form-control" type="text" v-model="other">
+									</div>
+								</div>
+																					
+								<!-- 按鈕 -->
+								<div class="d-flex bd-highlight">
+									<button type="submit" class="btn btn-primary me-3 p-2 bd-highlight"
+										@click="insertFile">Submit</button>
+									<button type="submit" class="btn btn-secondary me-1 p-2 bd-highlight"
+										@click="clearData">清空</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</section>
+			<!-- End Main Content -->
+		</div>
+
+	</main>
+</div>
+
+
+<!-- Sidebar -->
+<script>
+	$(function () {
+		// Sidebar
+		$("#frontierBook_page").removeClass("collapsed") 			// 顯示大標題
+		$("#frontierBook_page-nav").addClass("show")				// 展開選項
+		$("#sidebar_FrontierBook_upload").addClass("active")		// 顯示小標題
+	})
+</script>
+
+<!-- Vue -->
+<script type="module" th:inline="javascript">
+	import { createApp, ref, reactive, toRefs, onMounted } from "../../js/vue.esm-browser.min.js";
+	const baseUrl = [[${ #servletContext.contextPath }]];
+	const requestMapping = "/GameUpload";
+
+	const app = createApp({
+		setup() {
+			// Init
+			onMounted(() => {
+				getOptions();
+			})
+
+			function getOptions() {
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + requestMapping + "/getOptions"
+				xhr.open("GET", url)
+				xhr.send()
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+						data.ffnoOptions = maps.ffnoOptions
+						data.autherOptions = maps.autherOptions
+						data.seriesOptions = maps.seriesOptions
+						data.topicOptions = maps.topicOptions
+					}
+				}
+			}
+
+			// Data
+			const data = reactive({
+				ffnoOptions: [ ], 		// { col: "ff39"}
+				autherOptions: [ ], 	// { col: "作者"}
+				seriesOptions: [ ], 	// { col: "系列"}
+				topicOptions: [ ], 		// { col: "主題"}
+
+				ffno: "",		//場次
+				auther : "",	//作者
+				bookName : "",	//名稱 
+				price : 0,		//錢 
+				series : "",	//系列 
+				topic : "",		//主題
+				other : ""		//其他 
+			})
+
+			// Alert Message
+			const trueAlertMsg = ref("")
+			const falseAlertMsg = ref("")
+
+			// Cancel
+			function cancel() {
+				trueAlertMsg.value = ""
+				falseAlertMsg.value = ""
+			}
+
+			function clearData() {
+				cancel()
+				$("#picfile").val("")
+				data.ffno = ""
+				data.auther = ""
+				data.bookName = ""
+				data.price = 0
+				data.series = ""
+				data.topic = ""
+				data.other = ""
+			}
+
+			// Button insert
+			const insertFile = () => {
+				// 清除Alert
+				cancel()
+
+				// check
+				if(!checkFile()){
+					return
+				}
+
+				// Data
+				let form = $("#uploadForm")[0]
+				let formData = new FormData(form);
+				formData.append("ffno", 	data.ffno)
+				formData.append("auther", 	data.auther)
+				formData.append("bookName", data.bookName)
+				formData.append("price", 	data.price)
+				formData.append("topic", 	data.topic)
+				formData.append("series", 	data.series)
+				formData.append("other", 	data.other)
+
+
+
+				// Ajax
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + requestMapping + "/insertFile"
+				xhr.open("POST", url)
+				//xhr.setRequestHeader("Content-Type", "multipart/form-data")
+				xhr.send(formData)
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+						if (maps.result) {
+							trueAlertMsg.value = maps.alertMsg
+							$("#picfile").val("") // 清除圖片
+							$("html,body").animate( {scrollTop: 0}); // 網頁回到最頂點
+						}
+						if (!maps.result) {
+							falseAlertMsg.value = maps.alertMsg
+						}
+					}
+				}
+			}
+
+			// check
+			function checkFile(){
+				// let ext = $("#picfile").val().split(".").pop()
+
+				if(data.bookName == ""){
+					// 没有选择档案
+					falseAlertMsg.value = [[#{alert.pic.noBookName}]]
+					return
+				}
+
+				// 補齊資料
+				if(data.ffno.length == 0){
+					data.ffno = "--"
+				}
+				if(data.auther.length == 0){
+					data.auther = "--"
+				}
+				if(data.series.length == 0){
+					data.series = "--"
+				}
+				if(data.topic.length == 0){
+					data.topic = "--"
+				}
+				if(data.other.length == 0){
+					data.other = "--"
+				}
+
+				return true
+			}
+
+			// test
+			function test(idaa, valueaa) {
+				console.log(idaa)
+				data[idaa] = valueaa + "!!"
+			}
+
+			// Return============================
+			return {
+				// Data
+				...toRefs(data), trueAlertMsg, falseAlertMsg,
+
+				// Function
+				insertFile, clearData, test
+			}
+		}
+	})
+	app.mount("#app")
+</script>
