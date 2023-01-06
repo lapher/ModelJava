@@ -36,7 +36,7 @@
 					<div class="card">
 						<div class="card-body">
 							<!-- 選擇檔案 -->
-							<h5 class="card-title">上傳圖片</h5>
+							<h5 class="card-title">上傳遊戲</h5>
 							<div class="row mb-3">
 								<!-- Col 1 圖片-->
 								<div class="row mb-3">
@@ -46,72 +46,23 @@
 										</form>
 									</div>
 								</div>
-								<!-- Col 2 場次-->
+								<!-- Col 2 Tag-->
 								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">場次</label>
-									<div class="col-6">
-										<input class="form-control" type="text" v-model="ffno">
-									</div>
-									<div class="col-4">
-										<select class="form-select" v-model="ffno">
-											<option v-for="option in ffnoOptions" :value="option.col">
-												{{ option.col }}
-											</option>
-										</select>
-									</div>									
-								</div>
-								<!-- Col 3 作者-->
-								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">作者</label>
+									<label for="inputPassword" class="col-2 col-form-label">Tag</label>
 									<div class="col-6">
 										<input class="form-control" type="text" v-model="auther">
 									</div>
 									<div class="col-4">
-										<select class="form-select" v-model="auther" @change="test('auther', auther)">
+										<select class="form-select" v-model="autherX" @change="addTag('auther', autherX)">
 											<option v-for="option in autherOptions" :value="option.col">
 												{{ option.col }}
 											</option>
 										</select>
 									</div>
 								</div>
-								<!-- Col 4 名稱-->
+								<!-- Col 3 類型 Type -->
 								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">書名</label>
-									<div class="col-10">
-										<input class="form-control" type="text" v-model="bookName">
-									</div>
-									<!-- <div class="col-4">
-										<select class="form-select" v-model="ffno">
-											<option v-for="option in options" :value="option.value">
-												{{ option.name }}
-											</option>
-										</select>
-									</div>									 -->
-								</div>
-								<!-- Col 5 價格-->
-								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">價格</label>
-									<div class="col-6">
-										<input class="form-control" type="number" v-model="price">
-									</div>
-								</div>	
-								<!-- Col 6 系列-->
-								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">系列</label>
-									<div class="col-6">
-										<input class="form-control" type="text" v-model="series">
-									</div>
-									<div class="col-4">
-										<select class="form-select" v-model="series">
-											<option v-for="option in seriesOptions" :value="option.col">
-												{{ option.col }}
-											</option>
-										</select>
-									</div>									
-								</div>
-								<!-- Col 7 主題-->
-								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">主題</label>
+									<label for="inputPassword" class="col-2 col-form-label">類型</label>
 									<div class="col-6">
 										<input class="form-control" type="text" v-model="topic">
 									</div>
@@ -123,14 +74,136 @@
 										</select>
 									</div>									
 								</div>
-								<!-- Col 8 其他-->
+								<!-- Col 4 社團 Club -->
 								<div class="row mb-3">
-									<label for="inputPassword" class="col-2 col-form-label">其他</label>
-									<div class="col-10">
-										<input class="form-control" type="text" v-model="other">
+									<label for="inputPassword" class="col-2 col-form-label">社團</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 5 聲優 voice -->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">聲優</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>				
+								<!-- Col 6 發售日 Date -->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">發售日</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 7 R -->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">R</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 8 語言 language -->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">語言</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 9 有資源 resource -->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">有資源</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 10 內容簡介 content -->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">內容簡介</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 11 價格 Price -->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">價格</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
+									</div>									
+								</div>
+								<!-- Col 12 圖片(複數) picDirKey -->
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-2 col-form-label">圖片(複數)</label>
+									<div class="col-6">
+										<input class="form-control" type="text" v-model="topic">
+									</div>
+									<div class="col-4">
+										<select class="form-select" v-model="topic">
+											<option v-for="option in topicOptions" :value="option.col">
+												{{ option.col }}
+											</option>
+										</select>
 									</div>
 								</div>
-																					
+
+
+
+
 								<!-- 按鈕 -->
 								<div class="d-flex bd-highlight">
 									<button type="submit" class="btn btn-primary me-3 p-2 bd-highlight"
@@ -156,9 +229,9 @@
 <script>
 	$(function () {
 		// Sidebar
-		$("#frontierBook_page").removeClass("collapsed") 			// 顯示大標題
-		$("#frontierBook_page-nav").addClass("show")				// 展開選項
-		$("#sidebar_FrontierBook_upload").addClass("active")		// 顯示小標題
+		$("#Game_page").removeClass("collapsed") 			// 顯示大標題
+		$("#Game_page-nav").addClass("show")				// 展開選項
+		$("#sidebar_Game_upload").addClass("active")		// 顯示小標題
 	})
 </script>
 
@@ -200,6 +273,7 @@
 
 				ffno: "",		//場次
 				auther : "",	//作者
+				autherX : "",	//作者
 				bookName : "",	//名稱 
 				price : 0,		//錢 
 				series : "",	//系列 
@@ -226,7 +300,7 @@
 				data.price = 0
 				data.series = ""
 				data.topic = ""
-				data.other = ""
+				data.autherX = ""
 			}
 
 			// Button insert
@@ -303,10 +377,9 @@
 				return true
 			}
 
-			// test
-			function test(idaa, valueaa) {
-				console.log(idaa)
-				data[idaa] = valueaa + "!!"
+			// addTag
+			function addTag(ida, valueaa) {
+				data[ida] = data[ida] + valueaa + "@"
 			}
 
 			// Return============================
@@ -315,7 +388,7 @@
 				...toRefs(data), trueAlertMsg, falseAlertMsg,
 
 				// Function
-				insertFile, clearData, test
+				insertFile, clearData, addTag
 			}
 		}
 	})
