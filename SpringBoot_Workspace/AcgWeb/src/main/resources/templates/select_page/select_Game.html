@@ -170,6 +170,7 @@
 		setup() {
 			// Init
 			onMounted(() => {
+				getAllFirst();
 				// getOptions()
 				// data.Bean = { ...data.default_Bean }
 				// data.temp_Bean = { ...data.default_Bean }
@@ -188,6 +189,21 @@
 						options.teller_Auth_Level = maps.teller_Auth_Level
 						options.teller_Status = maps.teller_Status
 						options.teller_Type = maps.teller_Type
+					}
+
+				}
+			}
+			// 取得第一頁資料
+			function getAllFirst() {
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + requestMapping + "/getAllFirst"
+				xhr.open("GET", url)
+				xhr.send()
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+						data.beanAll = maps.beanAll
+						data.pagination = maps.pagination
 					}
 
 				}
@@ -214,6 +230,10 @@
 				select_Bean: { // 輸入查詢用
 
 				},
+				beanAll: [], 	// 該頁數的資料
+				pagination: { 	// 分頁資料
+
+				}
 			})
 
 
