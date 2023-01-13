@@ -177,22 +177,22 @@
 				// data.select_Bean = { ...data.select_default_Bean }
 			})
 			// 取得 Options	
-			function getOptions() {
-				let xhr = new XMLHttpRequest();
-				let url = baseUrl + requestMapping + "/getOptions"
-				xhr.open("GET", url)
-				xhr.send()
-				xhr.onreadystatechange = function () {
-					if (xhr.readyState == 4 && xhr.status == 200) {
-						const maps = JSON.parse(xhr.responseText)
-						options.real_Teller_Flag = maps.real_Teller_Flag
-						options.teller_Auth_Level = maps.teller_Auth_Level
-						options.teller_Status = maps.teller_Status
-						options.teller_Type = maps.teller_Type
-					}
+			// function getOptions() {
+			// 	let xhr = new XMLHttpRequest();
+			// 	let url = baseUrl + requestMapping + "/getOptions"
+			// 	xhr.open("GET", url)
+			// 	xhr.send()
+			// 	xhr.onreadystatechange = function () {
+			// 		if (xhr.readyState == 4 && xhr.status == 200) {
+			// 			const maps = JSON.parse(xhr.responseText)
+			// 			options.real_Teller_Flag = maps.real_Teller_Flag
+			// 			options.teller_Auth_Level = maps.teller_Auth_Level
+			// 			options.teller_Status = maps.teller_Status
+			// 			options.teller_Type = maps.teller_Type
+			// 		}
 
-				}
-			}
+			// 	}
+			// }
 			// 取得第一頁資料
 			function getAllFirst() {
 				let xhr = new XMLHttpRequest();

@@ -46,12 +46,12 @@ public class GameController {
 	private MessageSource messageSource;
 	Locale locale = LocaleContextHolder.getLocale();
 
-	// 資料補登入
-	@GetMapping("/")
-	public String mainPage(Model model) {
-		model.addAttribute("mainPage", "page/Game");	// 統一小寫
-		return "model/dashboard";
-	}
+	// 單一資料CRUD
+//	@GetMapping("/")
+//	public String mainPage(Model model) {
+//		model.addAttribute("mainPage", "page/Game");	// 統一小寫
+//		return "model/dashboard";
+//	}
 
 	// 查詢頁面
 	@GetMapping("/select_page")
@@ -83,7 +83,7 @@ public class GameController {
 		return map;
 	}
 	
-	// SelectAll which page
+	// SelectAll which x page
 	@PostMapping(value = "/getAllPage", consumes = "application/json")
 	public @ResponseBody Map<String, Object> getAllPage(@RequestParam int nowPage) {
 		Map<String, Object> map = new HashMap<>();
