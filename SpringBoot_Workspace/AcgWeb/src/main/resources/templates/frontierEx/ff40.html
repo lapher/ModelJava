@@ -1,0 +1,151 @@
+<div th:fragment="mainPage">
+	<!-- ======= Main ======= -->
+	<main id="main" class="main">
+		<div id="app" v-cloak>
+			<!-- Page Title -->
+			<div class="pagetitle">
+				<h1>FF40</h1>
+				<div @click=""></div>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+						<li class="breadcrumb-item active">FF40</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+
+			<!-- Main Content -->
+			<section class="section">
+				<div class="row">
+					<div class="col-lg-12">
+
+						<!-- Detail Content -->
+						<div id="ContentArea"></div>
+
+
+						
+						<!-- Table Content -->
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title" th:text="#{buttonPage.select}">查詢頁面</h5>
+								
+								
+								<!-- Table with stripped rows -->
+								<table id="table_id" class="table table-sm table-striped" style="width:100%">
+									<thead>
+										<tr>
+											<th scope="col" width="25%">pic</th>
+											<th scope="col">攤位</th>
+											<th scope="col">主題</th>
+											<th scope="col">價格</th>
+											<th scope="col" width="5%"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="item in book">
+											
+											<td><img :src="item.pic"  class="img-thumbnail"></td>
+											<td>{{item.name}}</td>
+											<td>{{item.theme}}</td>
+											<td>{{item.price}}</td>
+											<td>
+												<div class="form-check form-switch">
+													<input class="form-check-input" type="checkbox">
+												</div>
+											</td>
+										</tr>
+										
+									</tbody>
+								</table>
+								<!-- End Table with stripped rows -->
+
+								
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End Main Content -->
+		</div>
+
+	</main>
+	<!-- End #main -->
+</div>
+
+
+
+<!-- Sidebar -->
+<script>
+	$(function () {
+		// Sidebar
+		$("#ffrontierEx").removeClass("collapsed") 			// 顯示大標題
+		$("#ffrontierEx-nav").addClass("show")				// 展開選項
+		$("#sidebar_frontierEx_ff40").addClass("active")// 顯示小標題
+	})
+</script>
+
+<!-- Vue -->
+<script type="module" th:inline="javascript">
+	import { createApp, ref, reactive, toRefs, onMounted } from "../../js/vue.esm-browser.min.js";
+	const baseUrl = [[${ #servletContext.contextPath }]];
+	const requestMapping = "/FrontierEx";
+
+	var curPath = window.document.location.href; //获取当前网址，如： http://localhost:8088/test/test.jsp		
+	var pathName = window.document.location.pathname; //获取主机地址之后的目录，如： test/test.jsp
+	var pos = curPath.indexOf(pathName);
+	const localhostPath = curPath.substring(0, pos); //获取主机地址，如： http://localhost:8088
+	const picPath = [[#{frontierBookEx.picPath}]]
+	const bookPic = localhostPath + picPath
+
+	const app = createApp({
+		setup() {
+			// Init
+			onMounted(() => {
+				setTimeout(function(){
+					$('#table_id').DataTable();
+				},100);
+			})
+			// Data
+			const data = reactive({
+				book: [
+					{
+						pic: bookPic + "001.jpg",
+						name: "A01 peko",
+						theme: "Hololive",
+						price: "100"
+
+					},
+					{
+						pic: bookPic + "002.jpg",
+						name: "D22 腳腳",
+						theme: "Hololive",
+						price: "200"
+
+					},
+
+
+
+				],
+				
+			})
+
+
+			// function
+
+
+			// Return============================
+			return {
+				// Data
+				...toRefs(data),
+
+				// function
+				
+
+
+			}
+		}
+	})
+	app.mount("#app")
+</script>
