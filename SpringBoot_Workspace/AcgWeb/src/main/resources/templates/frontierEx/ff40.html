@@ -35,20 +35,19 @@
 								<table id="table_id" class="table table-sm table-striped" style="width:100%">
 									<thead>
 										<tr>
+											<th scope="col">#</th>
 											<th scope="col" width="25%">pic</th>
 											<th scope="col">攤位</th>
 											<th scope="col">主題</th>
-											<th scope="col">價格</th>
 											<th scope="col" width="5%"></th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr v-for="item in book">
-											
+										<tr v-for="item in beanAll">
+											<td>{{item.rank}}</td>
 											<td><img :src="item.pic"  class="img-thumbnail"></td>
-											<td>{{item.name}}</td>
-											<td>{{item.theme}}</td>
-											<td>{{item.price}}</td>
+											<td>{{item.clubName}}</td>
+											<td>{{item.product}}</td>
 											<td>
 												<div class="form-check form-switch">
 													<input class="form-check-input" type="checkbox">
@@ -80,9 +79,9 @@
 <script>
 	$(function () {
 		// Sidebar
-		$("#ffrontierEx").removeClass("collapsed") 			// 顯示大標題
-		$("#ffrontierEx-nav").addClass("show")				// 展開選項
-		$("#sidebar_frontierEx_ff40").addClass("active")// 顯示小標題
+		$("#frontierEx").removeClass("collapsed") 			// 顯示大標題
+		$("#frontierEx-nav").addClass("show")				// 展開選項
+		$("#sidebar_frontierEx_ff40").addClass("active")	// 顯示小標題
 	})
 </script>
 
@@ -96,32 +95,34 @@
 	var pathName = window.document.location.pathname; //获取主机地址之后的目录，如： test/test.jsp
 	var pos = curPath.indexOf(pathName);
 	const localhostPath = curPath.substring(0, pos); //获取主机地址，如： http://localhost:8088
-	const picPath = [[#{frontierBookEx.picPath}]]
+	const picPath = [[#{frontierBookEx.picPath.ff40}]]
 	const bookPic = localhostPath + picPath
 
 	const app = createApp({
 		setup() {
 			// Init
 			onMounted(() => {
+				getBeanAll();
+
 				setTimeout(function(){
 					$('#table_id').DataTable();
-				},100);
+				},300);
 			})
+
 			// Data
 			const data = reactive({
+				beanAll: [], 	// 所有FF Club資料 clubName, rank, product
 				book: [
 					{
 						pic: bookPic + "001.jpg",
 						name: "A01 peko",
 						theme: "Hololive",
-						price: "100"
 
 					},
 					{
 						pic: bookPic + "002.jpg",
 						name: "D22 腳腳",
 						theme: "Hololive",
-						price: "200"
 
 					},
 
@@ -133,7 +134,27 @@
 
 
 			// function
+			function getBeanAll() {
+				let xhr = new XMLHttpRequest();
+				let url = baseUrl + requestMapping + "/getBeanAll"
+				xhr.open("GET", url)
+				xhr.send()
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						const maps = JSON.parse(xhr.responseText)
+						data.beanAll = maps.beanAll
+						console.log(data.beanAll)
+						for(var i = 0; i < data.beanAll.length; i++){
+							// bean.pic = bookPic + bean.clubName + ".png"
+							data.beanAll[i].pic = bookPic + data.beanAll[i].clubName + ".png"
+						}
 
+
+						// $('#table_id').DataTable();
+					}
+
+				}
+			}
 
 			// Return============================
 			return {

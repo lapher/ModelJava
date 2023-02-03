@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.web.mapper.FFClubMapper">
+	
+	<!-- 開啟二級緩存 6小時刷新-->
+	<!-- <cache  flushInterval="21600000"/>
+	<cache />-->
+	
+	<!-- FrontierBook selectID(FrontierBook bean);
+	<select id="selectID" resultType="FrontierBook">
+		select * from frontierbook where picDir = #{picDir}
+	</select> -->
+	
+	<!-- List<FrontierBook> selectAll() -->
+	<select id="selectAll" resultType="FFClub">
+		select * from ffclub order by rank
+	</select>
+
+
+
+</mapper>
