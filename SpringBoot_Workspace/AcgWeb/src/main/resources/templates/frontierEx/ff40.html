@@ -21,7 +21,14 @@
 					<div class="col-lg-12">
 
 						<!-- Detail Content -->
-						<div id="ContentArea"></div>
+						<div id="ContentArea">
+							<div class="card">
+								<div class="card-body">
+									<img :src="mapPic" class="img-fluid" alt="...">
+								</div>
+							</div>		
+						
+						</div>
 
 
 						
@@ -112,6 +119,7 @@
 			// Data
 			const data = reactive({
 				beanAll: [], 	// 所有FF Club資料 clubName, rank, product
+				mapPic: bookPic + "_map.png",
 				book: [
 					{
 						pic: bookPic + "001.jpg",

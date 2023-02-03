@@ -15,7 +15,7 @@
 	
 	<!-- List<FrontierBook> selectAll() -->
 	<select id="selectAll" resultType="FFClub">
-		select * from ffclub order by rank
+		select * from ffclub order by rank, clubName
 	</select>
 
 
